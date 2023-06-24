@@ -17,7 +17,7 @@
 ## Coding Guideline
 
 - ### Variable Names
-  - Use camelCase naming convention when defining variables (eg. ).
+  - Use camelCase naming convention when defining variables (eg. incrementCounter).
     - The Exception to this is when defining a Function, Class or Widget. Always use capitalized letters for each word in this case (eg. HomeScreen(), FindMax() etc).
   - Use an underscore at the beginning of a booleans name when defining the variable.
   - Use an underscore at the beginning of a variables name when defining the variable in a provider class.
@@ -32,24 +32,22 @@
 
 - ### Constants And Exports Files
   - When making a variable/value that will be used multiple times such as the apps primary colour make it inside the constants file.
-  - When making a page please put it inside the exports file as an export (eg. export 'pages/home.dart';).
 
 - ### File Names
   - When naming a file make sure to use meaningful names without shortened words.
   - Use underscores instead of spaces in the names.
-  - When naming a page file use the section of the app the page is for at the start of the name. This will make it easier to find the page you're after when lookiing for them. (eg. create_exercises.dart should be workout_create_exercises.dart).
+  - When naming a page file use the section of the app the page is for at the start of the name. This will make it easier to find the page you're after when looking for them. (eg. create_exercises.dart should be workout_create_exercises.dart).
 
 - ### File Locations
   - Files should be in the appropriate folders (eg. a Widget inside the Widgets folder, a Screen inside the Screens folder etc).
+  - Files should also be in sub categorized folders such as "Home" or "Profile".
 
 - ### Dependencies
   - Any dependency package for the app should be placed inside the pubspec.yaml under the "dependencies:" header.
   - Similarly any Assets should be under the "assets:" header and Fonts under the "fonts:" header.
 
 - ### Navigation Between App Pages
-  - Avoid using Navigator to switch page.
-    - As this app is a Single-Page Application using Navigator will cause the navigation bar to dissapear.
-  - Instead use "context.read<PageChange>().changePage(InsertPageWidgetHere)".
+    - Use Navigator to navigate app.
 
 - ### Commenting Guidelines
   - When Commenting something that needs done in future please use "//todo" before the commented task. This will highlight it in yellow in Android Studio.
