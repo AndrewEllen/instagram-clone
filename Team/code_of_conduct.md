@@ -17,6 +17,9 @@
    - Set clear deadlines and strive to meet them.
    - Take ownership of assigned tasks and complete them with quality.
    - Inform each other in advance if unable to meet a deadline or fulfill a commitment.
+   - Move Trello Tickets accordingly with task completion.
+   - Add any relevant comments/screenshots to the task being worked on.
+   - Tick off tasks as you work on them.
 
 4. Confidentiality:
    - Respect the confidentiality of project-related information and discussions.
