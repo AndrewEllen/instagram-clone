@@ -1,24 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:instagram_clone/pages/main_page.dart';
 
 void main() {
-  runApp(const MaterialApp(home: MyHomePage()));
+  runApp(const MyApp());
 }
 
-class MyHomePage extends StatelessWidget {
-  const MyHomePage({Key? key}) : super(key: key);
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Instagram Clone'),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
       ),
-      body: const Center(
-        child: Text(
-          'Removed all boilerplate code for a clean start',
-          style: TextStyle(fontSize: 24),
-        ),
-      ),
+      home: const MainPage(),
     );
   }
 }
