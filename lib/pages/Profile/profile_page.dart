@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:instagram_clone/widgets/ProfileWidgets/profile_counters.dart';
 import '../../constants.dart';
 import '../../widgets/MainAppWidgets/app_bar.dart';
+import '../../widgets/ProfileWidgets/profile_buttons.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -122,7 +123,38 @@ class _ProfilePageState extends State<ProfilePage> with TickerProviderStateMixin
           ),
           Container(
             margin: const EdgeInsets.only(
-              top: 80,
+              top: 30,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const SizedBox(
+                  width: 10,
+                ),
+                Expanded(
+                    child: ProfileButton(
+                      text: "Edit Profile",
+                      onTap: () {},
+                    ),
+                  ),
+                const SizedBox(
+                  width: 5,
+                ),
+                Expanded(
+                    child: ProfileButton(
+                      text: "Share Profile",
+                      onTap: () {},
+                    ),
+                  ),
+                const SizedBox(
+                  width: 10,
+                ),
+              ],
+            ),
+          ),
+          Container(
+            margin: const EdgeInsets.only(
+              top: 30,
             ),
             child: Column(
               children: [
