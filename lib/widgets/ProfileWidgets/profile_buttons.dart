@@ -5,7 +5,7 @@ class ProfileButton extends StatelessWidget {
   ProfileButton({Key? key, required this.onTap, required this.text}) : super(key: key);
 
   final String text;
-  final Function onTap;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class ProfileButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(4),
           ),
         ),
-        onPressed: () => onTap,
+        onPressed: onTap,
         child: Text(
           text,
           style: defaultTextStyle,
