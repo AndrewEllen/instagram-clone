@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:instagram_clone/widgets/ProfileWidgets/BottomModalEditBar.dart';
 import 'package:instagram_clone/widgets/ProfileWidgets/profile_counters.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import '../../constants.dart';
@@ -132,7 +133,16 @@ class _ProfilePageState extends State<ProfilePage>
                   Expanded(
                     child: ProfileButton(
                       text: "Edit Profile",
-                      onTap: () {},
+                      onTap: () {
+                        showModalBottomSheet(
+                          showDragHandle: true,
+                          isScrollControlled: true,
+                          context: context,
+                          builder: (BuildContext context) {
+                            return const BottomModalEditBar();
+                          },
+                        );
+                      },
                     ),
                   ),
                   const SizedBox(
