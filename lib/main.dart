@@ -1,8 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_clone/pages/main_page.dart';
+import 'package:instagram_clone/providers/Profile/user_data.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => UserData(),
+        ),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

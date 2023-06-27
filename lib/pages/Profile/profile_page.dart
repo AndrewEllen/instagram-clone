@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:instagram_clone/widgets/ProfileWidgets/BottomModalEditBar.dart';
 import 'package:instagram_clone/widgets/ProfileWidgets/profile_counters.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:provider/provider.dart';
 import '../../constants.dart';
+import '../../providers/Profile/user_data.dart';
 import '../../widgets/MainAppWidgets/app_bar.dart';
 import '../../widgets/ProfileWidgets/BottomModalShareBar.dart';
 import '../../widgets/ProfileWidgets/BottomModalShareTile.dart';
@@ -17,7 +19,7 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage>
     with TickerProviderStateMixin {
-  final String userName = "User Name";
+
   final String pronouns = "He/Him";
 
   final double profileHeaderBoxSize = 60;
@@ -39,9 +41,9 @@ class _ProfilePageState extends State<ProfilePage>
     return Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: appPrimaryColour,
-        appBar: const InstagramAppBar(
+        appBar: InstagramAppBar(
           title: Text(
-            "Profile",
+            context.read<UserData>().userDisplayName,
           ),
         ),
         body: Column(
@@ -73,7 +75,7 @@ class _ProfilePageState extends State<ProfilePage>
                         ),
                         RichText(
                             text: TextSpan(
-                                text: userName,
+                                text: context.read<UserData>().userName,
                                 style: defaultTextStyle.copyWith(
                                   fontSize: 13,
                                   fontWeight: FontWeight.w500,
