@@ -43,7 +43,7 @@ class _ProfilePageState extends State<ProfilePage>
         backgroundColor: appPrimaryColour,
         appBar: InstagramAppBar(
           title: Text(
-            context.read<UserData>().userDisplayName,
+            context.watch<UserData>().userName,
           ),
         ),
         body: Column(
@@ -75,7 +75,7 @@ class _ProfilePageState extends State<ProfilePage>
                         ),
                         RichText(
                             text: TextSpan(
-                                text: context.read<UserData>().userName,
+                                text: context.watch<UserData>().userDisplayName,
                                 style: defaultTextStyle.copyWith(
                                   fontSize: 13,
                                   fontWeight: FontWeight.w500,
