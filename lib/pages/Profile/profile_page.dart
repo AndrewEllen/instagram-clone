@@ -8,6 +8,7 @@ import '../../providers/Profile/user_data.dart';
 import '../../widgets/MainAppWidgets/app_bar.dart';
 import '../../widgets/ProfileWidgets/BottomModalShareBar.dart';
 import '../../widgets/ProfileWidgets/BottomModalShareTile.dart';
+import '../../widgets/ProfileWidgets/PostsGridView.dart';
 import '../../widgets/ProfileWidgets/profile_buttons.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -263,24 +264,18 @@ class _ProfilePageState extends State<ProfilePage>
                     ),
                   ),
                   SizedBox(
-                    height: 200,
+                    height: 450,
                     child: TabBarView(
                       controller: tabController,
-                      children: const [
-                        Center(
-                          child: Text(
-                            "Page 1",
-                          ),
+                      children: [
+                        PostsGridView(
+                          length: 25,
                         ),
-                        Center(
-                          child: Text(
-                            "Page 2",
-                          ),
+                        PostsGridView(
+                          length: 13,
                         ),
-                        Center(
-                          child: Text(
-                            "Page 3",
-                          ),
+                        PostsGridView(
+                          length: 6,
                         ),
                       ],
                     ),
