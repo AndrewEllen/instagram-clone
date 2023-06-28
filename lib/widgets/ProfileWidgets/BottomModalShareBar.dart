@@ -8,8 +8,8 @@ class BottomModalShareBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 120,
+    return FractionallySizedBox(
+      heightFactor: 0.3,
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: modalTileList,
