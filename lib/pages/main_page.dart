@@ -61,10 +61,10 @@ class _MainPageState extends State<MainPage> {
   ];
 
   List<Widget> destinationsList = [
-    HomePage(),
-    SearchPage(),
-    NewPostPage(),
-    ProfilePage(),
+    const HomePage(),
+    const SearchPage(),
+    const NewPostPage(),
+    const ProfilePage(),
   ];
 
   void PageChange(int index) {
