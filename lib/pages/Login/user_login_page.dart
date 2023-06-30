@@ -1,21 +1,26 @@
+/*
+Under normal circumstances I wouldn't comment such obvious code, but due
+to being new to flutter and wanting to make sure I understand what is going on,
+and being able to refer back to the code later on, I have left comments so
+I don't forget
+
+-Lewis
+ */
+
 import 'package:flutter/material.dart';
+import 'package:instagram_clone/pages/UserRegistration/user_registration_page.dart';
 
 void main() {
-  runApp(const InstagramLoginClone());
+  runApp(const MyApp());
 }
 
-class InstagramLoginClone extends StatelessWidget {
-  const InstagramLoginClone({Key? key}) : super(key: key);
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Instagram Login Clone',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: const LoginPage(),
+    return const MaterialApp(
+      home: LoginPage(),
     );
   }
 }
@@ -26,93 +31,79 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
-          alignment: Alignment.center,
-          padding: const EdgeInsets.symmetric(horizontal: 24.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              const SizedBox(height: 80.0),
-              /*
-              Image.asset(
-                'logo.png', TODO: Add our logo or use instagram default
-                height: 80.0,
-              ),
-              */
-              const SizedBox(height: 40.0),
-              const TextField(
-                decoration: InputDecoration(
-                  labelText: 'Username, email address or mobile number',
-                ),
-              ),
-              const SizedBox(height: 16.0),
-              const TextField(
-                obscureText: true,
-                decoration: InputDecoration(
-                  labelText: 'Password',
-                ),
-              ),
-              const SizedBox(height: 16.0),
-              ElevatedButton(
-                onPressed: () {},
-                child: const Text('Log In'),
-              ),
-              const SizedBox(height: 16.0),
-              const Text(
-                'Forgot Password?',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.blue,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              const SizedBox(height: 24.0),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Expanded(
-                    child: Container(
-                      height: 1.0,
-                      color: Colors.grey,
-                    ),
+      body: Container(
+        alignment: Alignment.center,  // Aligns the child widgets to the center of the container
+        padding: const EdgeInsets.symmetric(horizontal: 24.0),  // Sets horizontal padding
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,  // Distributes child widgets evenly along the vertical axis
+          crossAxisAlignment: CrossAxisAlignment.stretch,  // Stretches child widgets to fill the horizontal space
+          children: <Widget>[
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,  // Aligns child widgets to the center vertically
+              children: <Widget>[
+                const SizedBox(height: 80.0),  // Adds vertical spacing
+                // Image.asset(
+                //   '../../assets/logo.png', can't seem to get this working
+                //   height: 80.0,
+                // ),
+                const SizedBox(height: 40.0),  // Adds vertical spacing
+                const TextField(
+                  decoration: InputDecoration(
+                    labelText: 'Username, email address, or mobile number',  // Adds a label to the text field
                   ),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 8.0),
-                    child: Text(
-                      'OR',
+                ),
+                const SizedBox(height: 16.0),  // Adds vertical spacing
+                const TextField(
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    labelText: 'Password',  // Adds a label to the text field
+                  ),
+                ),
+                const SizedBox(height: 16.0),  // Adds vertical spacing
+                ElevatedButton(
+                  onPressed: () {},  // Defines the function to be executed when the button is pressed
+                  child: const Text('Log In'),  // Displays the text on the button
+                ),
+                const SizedBox(height: 16.0),  // Adds vertical spacing
+                const Text(
+                  'Forgot Password?',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.blue,  // Sets the color of the text
+                    fontWeight: FontWeight.w600,  // Sets the font weight of the text
+                  ),
+                ),
+                const SizedBox(height: 24.0),  // Adds vertical spacing
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 20.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,  // Aligns child widgets to the center horizontally
+                children: <Widget>[
+                  const Text('Don\'t have an account?'),  // Displays the text
+                  const SizedBox(width: 4.0),  // Adds horizontal spacing
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const SignupPage(),  // Navigates to the SignupPage when tapped
+                        ),
+                      );
+                    },
+                    child: const Text(
+                      'Sign Up',
                       style: TextStyle(
-                        color: Colors.grey,
-                        fontWeight: FontWeight.w600,
+                        color: Colors.blue,  // Sets the color of the text
+                        fontWeight: FontWeight.w600,  // Sets the font weight of the text
                       ),
                     ),
                   ),
-                  Expanded(
-                    child: Container(
-                      height: 1.0,
-                      color: Colors.grey,
-                    ),
-                  ),
                 ],
               ),
-              const SizedBox(height: 16.0),
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text('Don\'t have an account?'),
-                  SizedBox(width: 4.0),
-                  Text(
-                    'Sign Up',
-                    style: TextStyle(
-                      color: Colors.blue,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
