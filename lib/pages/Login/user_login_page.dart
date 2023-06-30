@@ -9,6 +9,7 @@ I don't forget
 
 import 'package:flutter/material.dart';
 import 'package:instagram_clone/pages/UserRegistration/user_registration_page.dart';
+import 'package:instagram_clone/pages/main_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -61,7 +62,12 @@ class LoginPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 16.0),  // Adds vertical spacing
                 ElevatedButton(
-                  onPressed: () {},  // Defines the function to be executed when the button is pressed
+                  onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const MainPage(),
+                    ),
+                  ),  // Defines the function to be executed when the button is pressed
                   child: const Text('Log In'),  // Displays the text on the button
                 ),
                 const SizedBox(height: 16.0),  // Adds vertical spacing

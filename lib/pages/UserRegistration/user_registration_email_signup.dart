@@ -9,9 +9,12 @@ I don't forget.
 
 import 'package:flutter/material.dart';
 import 'user_registration_confirmation_email.dart';
+import '../../extensions/EmailValidator.dart';
 
 class UserRegistrationEmailSignup extends StatelessWidget {
   final _emailController = TextEditingController();
+
+  final GlobalKey<FormState> validatorKey = GlobalKey<FormState>();
 
   UserRegistrationEmailSignup({Key? key}) : super(key: key);
   // The UserRegistrationEmailSignup class is a stateless widget that represents
@@ -42,7 +45,9 @@ class UserRegistrationEmailSignup extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 30.0),  // Adds vertical spacing
-            TextField(
+            TextFormField(
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              key: validatorKey,
               controller: _emailController,  // Associates the text field with the email controller
               keyboardType: TextInputType.emailAddress,  // Sets the keyboard type to email address
               decoration: const InputDecoration(
@@ -50,6 +55,7 @@ class UserRegistrationEmailSignup extends StatelessWidget {
                 labelStyle: TextStyle(color: Colors.grey),  // Sets the color of the input field label
                 border: OutlineInputBorder(),  // Adds an outline border to the input field
               ),
+              validator: (value) => value!.isValidEmail() ? null : "Invalid Email",
             ),
             const SizedBox(height: 30.0),  // Adds vertical spacing
             Center(

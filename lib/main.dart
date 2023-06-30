@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:instagram_clone/pages/LoadingScreen/loading_screen.dart';
-import 'package:instagram_clone/pages/main_page.dart';
+import 'package:instagram_clone/pages/LandingPage/landing_page.dart';
+import 'package:instagram_clone/pages/Login/user_login_page.dart';
+import 'package:instagram_clone/pages/UserRegistration/user_registration_email_signup.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const LoadingScreen(),
+      home: LandingPage(),
     );
   }
 }

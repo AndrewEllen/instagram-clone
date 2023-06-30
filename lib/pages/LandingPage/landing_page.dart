@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:instagram_clone/pages/Login/user_login_page.dart';
 
 void main() {
   runApp(const LandingPage());
@@ -55,6 +56,19 @@ class LandingPage extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {},
                 child: const Text('Signup'),
+              ),
+              TextButton(
+                  onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const LoginPage(
+
+                      ),
+                    ),
+                  ),
+                  child: const Text(
+                    "Login"
+                  ),
               ),
             ],
           ),
