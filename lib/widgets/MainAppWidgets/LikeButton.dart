@@ -13,7 +13,7 @@ class LikeButton extends StatefulWidget {
 
 class _LikeButtonState extends State<LikeButton> {
 
-  late bool _liked;
+  late bool _liked = false;
 
   @override
   void initState() {
@@ -30,7 +30,9 @@ class _LikeButtonState extends State<LikeButton> {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      onPressed: () {},
+      onPressed: () => setState(() {
+        _liked = !_liked;
+      }),
       icon: Icon(
         MdiIcons.heartOutline,
         color: appTertiaryColour,
@@ -39,6 +41,7 @@ class _LikeButtonState extends State<LikeButton> {
         MdiIcons.heart,
         color: Colors.red,
       ),
+      isSelected: _liked,
     );
   }
 }

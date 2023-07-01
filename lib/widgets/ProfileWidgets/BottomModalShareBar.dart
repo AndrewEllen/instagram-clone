@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'BottomModalShareTile.dart';
+import '../MainAppWidgets/BottomModalShareTile.dart';
 
 class BottomModalShareBar extends StatelessWidget {
   const BottomModalShareBar({Key? key, required this.modalTileList}) : super(key: key);

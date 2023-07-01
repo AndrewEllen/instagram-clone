@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_clone/constants.dart';
-
-import 'LikeButton.dart';
+import 'package:instagram_clone/widgets/MainAppWidgets/FavouriteButton.dart';
+import '../MainAppWidgets/CommentButton.dart';
+import '../MainAppWidgets/LikeButton.dart';
+import '../MainAppWidgets/ShareButton.dart';
 
 class HomeFeedPostCard extends StatefulWidget {
   const HomeFeedPostCard({Key? key}) : super(key: key);
@@ -15,7 +17,8 @@ class _HomeFeedPostCardState extends State<HomeFeedPostCard> {
   late String userName = "Username";
   late String location = "Location";
 
-  late bool _liked = false;
+  late final bool _liked = false;
+  late final bool _favourited = false;
 
   final double width = double.maxFinite;
 
@@ -96,6 +99,16 @@ class _HomeFeedPostCardState extends State<HomeFeedPostCard> {
                 children: [
                   LikeButton(
                     liked: _liked,
+                  ),
+
+                  CommentButton(),
+
+                  ShareButton(),
+
+                  const Spacer(),
+
+                  FavouriteButton(
+                    favourited: _favourited,
                   ),
                 ],
               ),

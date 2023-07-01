@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../constants.dart';
+import '../../widgets/HomeWidgets/HomeFeedPostCard.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -14,10 +15,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: appPrimaryColour,
       body: Center(
-        child: Text(
-            "Home Page",
-          style: defaultTextStyle,
-        ),
+        child: HomeFeedPostCard(),
       ),
     );
   }

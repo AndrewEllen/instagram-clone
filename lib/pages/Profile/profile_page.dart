@@ -7,7 +7,7 @@ import '../../constants.dart';
 import '../../providers/Profile/user_data.dart';
 import '../../widgets/MainAppWidgets/app_bar.dart';
 import '../../widgets/ProfileWidgets/BottomModalShareBar.dart';
-import '../../widgets/ProfileWidgets/BottomModalShareTile.dart';
+import '../../widgets/MainAppWidgets/BottomModalShareTile.dart';
 import '../../widgets/ProfileWidgets/PostsGridView.dart';
 import '../../widgets/ProfileWidgets/profile_buttons.dart';
 
