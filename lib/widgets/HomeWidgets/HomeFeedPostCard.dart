@@ -13,12 +13,14 @@ class HomeFeedPostCard extends StatefulWidget {
 }
 
 class _HomeFeedPostCardState extends State<HomeFeedPostCard> {
-
   late String userName = "Username";
   late String location = "Location";
 
   late final bool _liked = false;
   late final bool _favourited = false;
+
+  late final int likeCounter = 10;
+  late final int commentCounter = 3;
 
   final double width = double.maxFinite;
 
@@ -34,12 +36,10 @@ class _HomeFeedPostCardState extends State<HomeFeedPostCard> {
       ),
       //height: 100,
       child: Card(
-        margin: const EdgeInsets.only(
-          left: 10,
-          right: 10
-        ),
+        margin: const EdgeInsets.only(left: 10, right: 10),
         color: appPrimaryColour,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
             Row(
@@ -59,7 +59,6 @@ class _HomeFeedPostCardState extends State<HomeFeedPostCard> {
                     ),
                   ),
                 ),
-
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -73,10 +72,8 @@ class _HomeFeedPostCardState extends State<HomeFeedPostCard> {
                     ),
                   ],
                 ),
-
               ],
             ),
-
             AspectRatio(
               /// Sets container height equal to width. Using this because width is equal to the max possible value.
               /// width: double.maxfinite;
@@ -88,11 +85,9 @@ class _HomeFeedPostCardState extends State<HomeFeedPostCard> {
                 ),
               ),
             ),
-
             Padding(
               padding: const EdgeInsets.only(
                 top: 6.0,
-                bottom: 6.0,
                 left: 6.0,
               ),
               child: Row(
@@ -100,20 +95,48 @@ class _HomeFeedPostCardState extends State<HomeFeedPostCard> {
                   LikeButton(
                     liked: _liked,
                   ),
-
                   CommentButton(),
-
                   ShareButton(),
-
                   const Spacer(),
-
                   FavouriteButton(
                     favourited: _favourited,
                   ),
                 ],
               ),
             ),
-
+            Padding(
+              padding: const EdgeInsets.only(left: 20.0),
+              child: Text(
+                "$likeCounter likes",
+                style: defaultTextStyle,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 20.0),
+              child: RichText(
+                text: TextSpan(
+                    text: userName,
+                    style: defaultTextStyle.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: " Post description will go here.",
+                        style: defaultTextStyle,
+                      )
+                    ]),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 20.0,
+                bottom: 12,
+              ),
+              child: Text(
+                "View all $commentCounter comments",
+                style: defaultTextStyle,
+              ),
+            ),
           ],
         ),
       ),
