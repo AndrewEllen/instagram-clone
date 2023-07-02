@@ -17,6 +17,7 @@ class _InstagramAppBarState extends State<InstagramAppBar> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      automaticallyImplyLeading: false,
       title: widget.title,
     );
   }
