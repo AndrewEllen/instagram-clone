@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../constants.dart';
 import '../../widgets/HomeWidgets/HomeFeedPostCard.dart';
+import '../../widgets/MainAppWidgets/app_bar.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -13,9 +14,24 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: InstagramAppBar(
+        title: FractionallySizedBox(
+          widthFactor: 0.5,
+          child: Image.asset(
+            "assets/instaclone.png",
+          ),
+        ),
+      ),
       backgroundColor: appPrimaryColour,
       body: Center(
-        child: HomeFeedPostCard(),
+        child: ListView.builder(
+          itemCount: 10,
+          itemBuilder: (BuildContext context, int index) {
+            return HomeFeedPostCard(
+              index: index,
+            );
+          },
+        ),
       ),
     );
   }

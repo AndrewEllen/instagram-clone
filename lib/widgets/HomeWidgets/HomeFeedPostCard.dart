@@ -6,14 +6,16 @@ import '../MainAppWidgets/LikeButton.dart';
 import '../MainAppWidgets/ShareButton.dart';
 
 class HomeFeedPostCard extends StatefulWidget {
-  const HomeFeedPostCard({Key? key}) : super(key: key);
+  HomeFeedPostCard({Key? key, required this.index}) : super(key: key);
+
+  late int index;
 
   @override
   State<HomeFeedPostCard> createState() => _HomeFeedPostCardState();
 }
 
 class _HomeFeedPostCardState extends State<HomeFeedPostCard> {
-  late String userName = "Username";
+  late String userName = "Username ${widget.index}";
   late String location = "Location";
 
   late final bool _liked = false;
@@ -25,11 +27,24 @@ class _HomeFeedPostCardState extends State<HomeFeedPostCard> {
   final double width = double.maxFinite;
 
   /// Aspect ratio should be either 1 or 0.8
-  late double aspectRatio = 0.8;
+  late double aspectRatio;
+
+  @override
+  void initState() {
+
+    if (widget.index % 2 == 0) {
+      aspectRatio = 0.8;
+    } else {
+      aspectRatio = 1;
+    }
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
+      key: UniqueKey(),
       constraints: BoxConstraints(
         minWidth: width,
         //maxHeight: 500,
