@@ -25,23 +25,41 @@ jobs:
       - name: Run tests
         run: flutter analyze
 
-  deploy:
-    name: Deploy Pull Request to Dev
+  get_review_status:
+    name: Get Pull Request Review Status
     needs: build
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/pull/*/merge'
+    outputs:
+      review_status: ${{ steps.set_review_status.outputs.review_status }}
+
+    steps:
+      - name: Get Pull Request Information
+        id: pr_info
+        uses: octokit/request-action@v2.x
+        with:
+          route: GET /repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}
+
+      - name: Set Review Status
+        id: set_review_status
+        run: |
+          review_state=$(echo "${{ steps.pr_info.outputs.data }}" | jq -r '.state')
+          if [[ "$review_state" == "open" ]]; then
+            echo "::set-output name=review_status::PENDING"
+          else
+            echo "::set-output name=review_status::APPROVED"
+          fi
+
+  merge:
+    name: Merge Pull Request
+    needs: [build, get_review_status]
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/pull/*/merge' && needs.get_review_status.outputs.review_status == 'APPROVED'
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Set up Flutter
-        uses: subosito/flutter-action@v2
+      - name: Merge Pull Request
+        uses: pascalgn/automerge-action@v0.9.2
         with:
-          flutter-version: '3.10.1'
-
-      - name: Get dependencies
-        run: flutter pub get
-
-      - name: Build release APK
-        run: flutter build apk --release
+          github_token: ${{ secrets.GITHUB_TOKEN }}
