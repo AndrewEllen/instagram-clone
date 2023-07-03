@@ -46,8 +46,8 @@ class _EditProfileTextFormState extends State<EditProfileTextForm> {
               labelText: widget.labelText,
           ),
           validator: (String? value) {
-            if (value!.isNotEmpty && value!.length <= 25) {
-              if (widget.formatter!.hasMatch(value)) {
+            if (value!.isNotEmpty && value.length <= 25) {
+              if (widget.formatter.hasMatch(value)) {
                 return null;
               }
               return widget.errorMessage;
