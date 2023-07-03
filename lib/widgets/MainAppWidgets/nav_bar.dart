@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import '../../constants.dart';
 
 class NavBar extends StatefulWidget {
-  NavBar({Key? key, required this.destinationsIconList, required this.pageIndex, required this.pageChaneCallback, this.labelBehavior = NavigationDestinationLabelBehavior.alwaysHide}) : super(key: key);
+  const NavBar({Key? key, required this.destinationsIconList, required this.pageIndex, required this.pageChaneCallback, this.labelBehavior = NavigationDestinationLabelBehavior.alwaysHide}) : super(key: key);
 
-  late Function pageChaneCallback;
-  late int pageIndex;
-  late List<NavigationDestination> destinationsIconList;
-  late NavigationDestinationLabelBehavior labelBehavior;
+  final Function pageChaneCallback;
+  final int pageIndex;
+  final List<NavigationDestination> destinationsIconList;
+  final NavigationDestinationLabelBehavior labelBehavior;
 
   @override
   State<NavBar> createState() => _NavBarState();

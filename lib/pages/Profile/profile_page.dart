@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:instagram_clone/widgets/ProfileWidgets/BottomModalEditBar.dart';
+import 'package:instagram_clone/widgets/ProfileWidgets/bottom_modal_edit_bar.dart';
 import 'package:instagram_clone/widgets/ProfileWidgets/profile_counters.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
 import '../../constants.dart';
 import '../../providers/Profile/user_data.dart';
 import '../../widgets/MainAppWidgets/app_bar.dart';
-import '../../widgets/ProfileWidgets/BottomModalShareBar.dart';
-import '../../widgets/MainAppWidgets/BottomModalShareTile.dart';
-import '../../widgets/ProfileWidgets/PostsGridView.dart';
+import '../../widgets/ProfileWidgets/bottom_modal_share_bar.dart';
+import '../../widgets/MainAppWidgets/bottom_modal_share_tile.dart';
+import '../../widgets/ProfileWidgets/posts_grid_view.dart';
 import '../../widgets/ProfileWidgets/profile_buttons.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -92,29 +92,29 @@ class _ProfilePageState extends State<ProfilePage>
                       ],
                     ),
                     const Spacer(),
-                    ProfileCounter(
+                    const ProfileCounter(
                       title: "Posts",
                       //TODO Replace counter value with a provider variable
                       counter: 0,
-                      margin: const EdgeInsets.only(
+                      margin: EdgeInsets.only(
                         top: 10,
                       ),
                     ),
                     const Spacer(),
-                    ProfileCounter(
+                    const ProfileCounter(
                       title: "Followers",
                       //TODO Replace counter value with a provider variable
                       counter: 0,
-                      margin: const EdgeInsets.only(
+                      margin: EdgeInsets.only(
                         top: 10,
                       ),
                     ),
                     const Spacer(),
-                    ProfileCounter(
+                    const ProfileCounter(
                       title: "Following",
                       //TODO Replace counter value with a provider variable
                       counter: 0,
-                      margin: const EdgeInsets.only(
+                      margin: EdgeInsets.only(
                         top: 10,
                       ),
                     ),
@@ -267,7 +267,7 @@ class _ProfilePageState extends State<ProfilePage>
                     height: 450,
                     child: TabBarView(
                       controller: tabController,
-                      children: [
+                      children: const [
                         PostsGridView(
                           length: 25,
                         ),

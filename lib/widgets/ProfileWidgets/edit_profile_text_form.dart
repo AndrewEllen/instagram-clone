@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:instagram_clone/constants.dart';
 
 class EditProfileTextForm extends StatefulWidget {
-  EditProfileTextForm({
+  const EditProfileTextForm({
     Key? key,
     required this.hintText,
     required this.labelText,
@@ -13,13 +13,13 @@ class EditProfileTextForm extends StatefulWidget {
     required this.errorMessage,
   }) : super(key: key);
 
-  late String hintText;
-  late String labelText;
-  late String errorMessage;
-  late TextEditingController controller;
-  late GlobalKey<FormState> formKey;
-  late Icon icon;
-  late RegExp formatter;
+  final String hintText;
+  final String labelText;
+  final String errorMessage;
+  final TextEditingController controller;
+  final GlobalKey<FormState> formKey;
+  final Icon icon;
+  final RegExp formatter;
 
   @override
   State<EditProfileTextForm> createState() => _EditProfileTextFormState();

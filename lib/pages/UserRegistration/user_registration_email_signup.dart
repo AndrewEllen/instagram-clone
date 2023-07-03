@@ -9,7 +9,7 @@ I don't forget.
 
 import 'package:flutter/material.dart';
 import 'user_registration_confirmation_email.dart';
-import '../../extensions/EmailValidator.dart';
+import '../../extensions/email_validator.dart';
 
 class UserRegistrationEmailSignup extends StatelessWidget {
   final _emailController = TextEditingController();

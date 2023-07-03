@@ -8,13 +8,13 @@ class UserData with ChangeNotifier {
   String get userName => _userName;
   String get userDisplayName => _userDisplayName;
 
-  void UpdateUserName(String newUserName) {
+  void updateUserName(String newUserName) {
     _userName = newUserName;
 
     notifyListeners();
   }
 
-  void UpdateUserDisplayName(String newUserDisplayName) {
+  void updateUserDisplayName(String newUserDisplayName) {
     _userDisplayName = newUserDisplayName;
 
     notifyListeners();

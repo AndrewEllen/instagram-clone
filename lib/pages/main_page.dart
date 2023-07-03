@@ -67,7 +67,7 @@ class _MainPageState extends State<MainPage> {
     const ProfilePage(),
   ];
 
-  void PageChange(int index) {
+  void pageChange(int index) {
     setState(() {
       pageIndex = index;
     });
@@ -80,7 +80,7 @@ class _MainPageState extends State<MainPage> {
       bottomNavigationBar: NavBar(
         destinationsIconList: destinationIconsList,
         pageIndex: pageIndex,
-        pageChaneCallback: PageChange,
+        pageChaneCallback: pageChange,
       ),
       body: destinationsList[pageIndex],
     );

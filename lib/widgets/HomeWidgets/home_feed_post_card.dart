@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_clone/constants.dart';
-import 'package:instagram_clone/widgets/MainAppWidgets/FavouriteButton.dart';
-import '../MainAppWidgets/CommentButton.dart';
-import '../MainAppWidgets/LikeButton.dart';
-import '../MainAppWidgets/ShareButton.dart';
+import 'package:instagram_clone/widgets/MainAppWidgets/favourite_button.dart';
+import '../MainAppWidgets/comment_button.dart';
+import '../MainAppWidgets/like_button.dart';
+import '../MainAppWidgets/share_button.dart';
 
 class HomeFeedPostCard extends StatefulWidget {
-  HomeFeedPostCard({Key? key, required this.index}) : super(key: key);
+  const HomeFeedPostCard({Key? key, required this.index}) : super(key: key);
 
-  late int index;
+  final int index;
 
   @override
   State<HomeFeedPostCard> createState() => _HomeFeedPostCardState();
