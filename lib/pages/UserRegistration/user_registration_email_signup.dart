@@ -19,63 +19,80 @@ class UserRegistrationEmailSignup extends StatelessWidget {
         ),
         backgroundColor: Colors.blue,
       ),
-      body: Container(
-        alignment: Alignment.center,
-        padding: const EdgeInsets.symmetric(horizontal: 24.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            const SizedBox(height: 80.0),
-            Image.asset(
-              'assets/instaclone.png',
-              height: 80.0,
-            ),
-            const SizedBox(height: 40.0),
-            const Text(
-              'Enter your email address',
-              style: TextStyle(
-                fontSize: 24.0,
-                fontWeight: FontWeight.bold,
-              ),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 20.0),
-            TextFormField(
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-              key: validatorKey,
-              controller: _emailController,
-              keyboardType: TextInputType.emailAddress,
-              decoration: const InputDecoration(
-                labelText: 'Email',
-                labelStyle: TextStyle(color: Colors.grey),
-                border: OutlineInputBorder(),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.blue, width: 1.5),
-                ),
-              ),
-              validator: (value) => value!.isValidEmail() ? null : "Invalid Email",
-            ),
-            const SizedBox(height: 30.0),
-            Center(
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => UserRegistrationConfirmationEmail(
-                        email: _emailController.text,
+      body: SingleChildScrollView( // Added SingleChildScrollView
+        child: Container(
+          alignment: Alignment.center,
+          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Column(
+                children: <Widget>[
+                  const SizedBox(height: 80.0),
+                  Image.asset(
+                    'assets/instaclone.png',
+                    height: 80.0,
+                  ),
+                  const SizedBox(height: 40.0),
+                  const Text(
+                    'Enter your email address',
+                    style: TextStyle(
+                      fontSize: 24.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 20.0),
+                  TextFormField(
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    key: validatorKey,
+                    controller: _emailController,
+                    keyboardType: TextInputType.emailAddress,
+                    decoration: const InputDecoration(
+                      labelText: 'Email',
+                      labelStyle: TextStyle(color: Colors.grey),
+                      border: OutlineInputBorder(),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.blue, width: 1.5),
                       ),
                     ),
-                  );
-                },
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.blue),
-                ),
-                child: const Text('Next'),
+                    validator: (value) => value!.isValidEmail() ? null : "Invalid Email",
+                  ),
+                  const SizedBox(height: 30.0),
+                  Center(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => UserRegistrationConfirmationEmail(
+                              email: _emailController.text,
+                            ),
+                          ),
+                        );
+                      },
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(Colors.blue),
+                      ),
+                      child: const Text('Next'),
+                    ),
+                  ),
+                ],
               ),
-            ),
-          ],
+              Center(
+                child: TextButton(
+                  onPressed: () {
+                    // Add your onPressed code here
+                  },
+                  style: ButtonStyle(
+                    foregroundColor: MaterialStateProperty.all(Colors.blue),
+                  ),
+                  child: const Text("Sign up with mobile number"),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
