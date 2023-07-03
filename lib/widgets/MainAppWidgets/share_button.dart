@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:instagram_clone/constants.dart';
+import '../../constants.dart';
+import '../HomeWidgets/share_modal_screen.dart';
 
-import '../HomeWidgets/CommentModalScreen.dart';
-
-class CommentButton extends StatelessWidget {
-  const CommentButton({Key? key}) : super(key: key);
+class ShareButton extends StatelessWidget {
+  const ShareButton({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,12 +14,12 @@ class CommentButton extends StatelessWidget {
           isScrollControlled: true,
           context: context,
           builder: (BuildContext context) {
-            return CommentModalScreen();
+            return ShareModalScreen();
           },
         );
       },
       icon: Icon(
-        Icons.chat_bubble_outline,
+        Icons.share_outlined,
         color: appTertiaryColour,
       ),
     );

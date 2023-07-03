@@ -3,9 +3,9 @@ import 'package:instagram_clone/constants.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class LikeButton extends StatefulWidget {
-  LikeButton({Key? key, required this.liked}) : super(key: key);
+  const LikeButton({Key? key, required this.liked}) : super(key: key);
 
-  late bool liked;
+  final bool liked;
 
   @override
   State<LikeButton> createState() => _LikeButtonState();

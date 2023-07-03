@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import '../MainAppWidgets/BottomModalShareTile.dart';
 
 class CommentModalScreen extends StatelessWidget {
-  CommentModalScreen({Key? key}) : super(key: key);
+  const CommentModalScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
