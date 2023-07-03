@@ -46,11 +46,26 @@ jobs:
       - name: Build release APK
         run: flutter build apk --release
 
-  merge:
-    name: Merge Pull Request
+  get_review_status:
+    name: Get Pull Request Review Status
     needs: deploy
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/pull/*/merge'
+    outputs:
+      review_status: ${{ steps.review_job.outputs.review_status }}
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Get Pull Request Reviews
+        id: review_job
+        run: echo "::set-output name=review_status::$(gh pr view ${{ github.event.pull_request.number }} --json state -q '.state')"
+
+  merge:
+    name: Merge Pull Request
+    needs: [deploy, get_review_status]
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/pull/*/merge' && needs.get_review_status.outputs.review_status == 'APPROVED'
 
     steps:
       - name: Checkout Repository
