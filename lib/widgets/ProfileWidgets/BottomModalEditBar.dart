@@ -56,7 +56,7 @@ class _BottomModalEditBarState extends State<BottomModalEditBar> {
           FractionallySizedBox(
             widthFactor: 0.8,
             child: EditProfileTextForm(
-              icon: Icon(Icons.person),
+              icon: const Icon(Icons.person),
               hintText: "Enter a display name",
               labelText: "Display Name",
               errorMessage: "No Special Characters allowed",
