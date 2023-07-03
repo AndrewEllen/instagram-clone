@@ -60,7 +60,7 @@ class SignupPageState extends State<SignupPage> {
                 children: <Widget>[
                   const SizedBox(height: 80.0),
                   Image.asset(
-                    'assets/logo.png',
+                    'assets/instaclone.png',
                     height: 80.0,
                   ),
                   const SizedBox(height: 40.0),
