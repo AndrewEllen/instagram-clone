@@ -15,7 +15,7 @@ class CommentButton extends StatelessWidget {
           isScrollControlled: true,
           context: context,
           builder: (BuildContext context) {
-            return CommentModalScreen();
+            return const CommentModalScreen();
           },
         );
       },
