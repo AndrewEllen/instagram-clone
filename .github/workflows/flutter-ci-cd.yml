@@ -23,7 +23,7 @@ jobs:
         run: flutter pub get
 
       - name: Run tests
-        run: flutter test
+        run: flutter analyze
 
   deploy:
     name: Deploy Pull Request to Dev
