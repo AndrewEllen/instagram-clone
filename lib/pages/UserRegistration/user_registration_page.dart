@@ -4,12 +4,9 @@ import 'user_registration_email_signup.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({Key? key}) : super(key: key);
-  // The SignupPage class is a stateful widget that represents the signup page.
-  // It initializes a state using SignupPageState as its state class.
 
   @override
   SignupPageState createState() => SignupPageState();
-// Creates an instance of SignupPageState as the state for the SignupPage.
 }
 
 class SignupPageState extends State<SignupPage> {
@@ -49,73 +46,86 @@ class SignupPageState extends State<SignupPage> {
             Navigator.pop(context);
           },
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.blue,
       ),
-      body: Container(
-        padding: const EdgeInsets.all(40.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            const Text(
-              "What's your mobile number?",
-              style: TextStyle(
-                fontSize: 24.0,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 30.0),  // Adds vertical spacing
-            const Text(
-              "Enter the mobile number on which you can be contacted. No one will see this on your profile.",
-              style: TextStyle(
-                fontSize: 16,
-              ),
-            ),
-            const SizedBox(height: 20.0),  // Adds vertical spacing
-            TextField(
-              controller: _phoneNumberController,  // Associates the text field with the phone number controller
-              keyboardType: TextInputType.phone,  // Sets the keyboard type to phone
-              decoration: const InputDecoration(
-                labelText: "Mobile number",
-                labelStyle: TextStyle(color: Colors.grey),  // Sets the color of the input field label
-                border: OutlineInputBorder(),  // Adds an outline border to the input field
-              ),
-            ),
-            const SizedBox(height: 8),  // Adds vertical spacing
-            const Text(
-              "You may receive SMS notifications from us for security and login purposes.",
-              style: TextStyle(
-                fontSize: 14,
-                color: Colors.grey,
-              ),
-            ),
-            const SizedBox(height: 30.0),  // Adds vertical spacing
-            Center(
-              child: ElevatedButton(
-                onPressed: () => _navigateToEnterConfirmationPage(context),  // Calls the function to navigate to EnterConfirmationPage
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.blue),  // Sets the background color of the button
-                ),
-                child: const Text("Next"),  // Displays the text on the button
-              ),
-            ),
-            Center(
-              child: TextButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => UserRegistrationEmailSignup(),
+      body: SingleChildScrollView( // Added SingleChildScrollView
+        child: Container(
+          alignment: Alignment.center,
+          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Column(
+                children: <Widget>[
+                  const SizedBox(height: 80.0),
+                  Image.asset(
+                    'assets/logo.png',
+                    height: 80.0,
+                  ),
+                  const SizedBox(height: 40.0),
+                  const Text(
+                    "What's your mobile number?",
+                    style: TextStyle(
+                      fontSize: 24.0,
+                      fontWeight: FontWeight.bold,
                     ),
-                  );
-                },
-                style: ButtonStyle(
-                  foregroundColor: MaterialStateProperty.all(Colors.blue),  // Sets the foreground color of the button
-                ),
-                child: const Text("Sign up with email address"),  // Displays the text on the button
+                  ),
+                  const SizedBox(height: 30.0),
+                  const Text(
+                    "Enter the mobile number on which you can be contacted. No one will see this on your profile.",
+                    style: TextStyle(
+                      fontSize: 16,
+                    ),
+                  ),
+                  const SizedBox(height: 20.0),
+                  TextField(
+                    controller: _phoneNumberController,
+                    keyboardType: TextInputType.phone,
+                    decoration: const InputDecoration(
+                      labelText: "Mobile number",
+                      labelStyle: TextStyle(color: Colors.grey),
+                      border: OutlineInputBorder(),
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  const Text(
+                    "You may receive SMS notifications from us for security and login purposes.",
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.grey,
+                    ),
+                  ),
+                  const SizedBox(height: 30.0),
+                  Center(
+                    child: ElevatedButton(
+                      onPressed: () => _navigateToEnterConfirmationPage(context),
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(Colors.blue),
+                      ),
+                      child: const Text("Next"),
+                    ),
+                  ),
+                ],
               ),
-            ),
-          ],
+              Center(
+                child: TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => UserRegistrationEmailSignup(),
+                      ),
+                    );
+                  },
+                  style: ButtonStyle(
+                    foregroundColor: MaterialStateProperty.all(Colors.blue),
+                  ),
+                  child: const Text("Sign up with email address"),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
