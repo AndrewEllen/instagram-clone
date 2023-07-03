@@ -33,21 +33,17 @@ jobs:
       review_status: ${{ steps.set_review_status.outputs.review_status }}
 
     steps:
-      - name: Get Pull Request Information
-        id: pr_info
-        uses: octokit/request-action@v2.x
-        with:
-          route: GET /repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}
-
       - name: Set Review Status
         id: set_review_status
         run: |
-          review_state=$(echo "${{ steps.pr_info.outputs.data }}" | jq -r '.state')
+          review_state=$(gh pr view ${{ github.event.pull_request.number }} --json state -q '.state')
           if [[ "$review_state" == "open" ]]; then
             echo "::set-output name=review_status::PENDING"
           else
             echo "::set-output name=review_status::APPROVED"
           fi
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
 
   merge:
     name: Merge Pull Request
