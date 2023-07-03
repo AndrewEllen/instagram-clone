@@ -110,8 +110,8 @@ class _HomeFeedPostCardState extends State<HomeFeedPostCard> {
                   LikeButton(
                     liked: _liked,
                   ),
-                  CommentButton(),
-                  ShareButton(),
+                  const CommentButton(),
+                  const ShareButton(),
                   const Spacer(),
                   FavouriteButton(
                     favourited: _favourited,
