@@ -33,23 +33,25 @@ jobs:
       review_status: ${{ steps.set_review_status.outputs.review_status }}
 
     steps:
-      - name: Set Review Status
-        id: set_review_status
-        run: |
-          review_state=$(gh pr view ${{ github.event.pull_request.number }} --json state -q '.state')
-          if [[ "$review_state" == "open" ]]; then
-            echo "::set-output name=review_status::PENDING"
-          else
-            echo "::set-output name=review_status::APPROVED"
-          fi
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
+      - name: Get Pull Request Information
+        id: pr_info
+        uses: actions/github-script@v4
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { data: pullRequest } = await github.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number
+            });
+            const reviewState = pullRequest.state;
+            console.log(`::set-output name=review_status::${reviewState}`);
 
   merge:
     name: Merge Pull Request
     needs: [build, get_review_status]
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/pull/*/merge' && needs.get_review_status.outputs.review_status == 'APPROVED'
+    if: github.ref == 'refs/pull/*/merge' && needs.get_review_status.outputs.review_status == 'open'
 
     steps:
       - name: Checkout Repository
