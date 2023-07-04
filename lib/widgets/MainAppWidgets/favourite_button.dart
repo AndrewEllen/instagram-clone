@@ -3,9 +3,9 @@ import 'package:instagram_clone/constants.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class FavouriteButton extends StatefulWidget {
-  FavouriteButton({Key? key, required this.favourited}) : super(key: key);
+  const FavouriteButton({Key? key, required this.favourited}) : super(key: key);
 
-  late bool favourited;
+  final bool favourited;
 
   @override
   State<FavouriteButton> createState() => _FavouriteButtonState();

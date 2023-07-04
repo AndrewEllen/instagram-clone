@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_clone/constants.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import '../MainAppWidgets/BottomModalShareTile.dart';
+import '../MainAppWidgets/bottom_modal_share_tile.dart';
 
 class ShareModalScreen extends StatelessWidget {
   ShareModalScreen({Key? key}) : super(key: key);

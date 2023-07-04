@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../../constants.dart';
 
 class ProfileButton extends StatelessWidget {
-  ProfileButton({Key? key, required this.onTap, required this.text}) : super(key: key);
+  const ProfileButton({Key? key, required this.onTap, required this.text}) : super(key: key);
 
   final String text;
   final VoidCallback onTap;

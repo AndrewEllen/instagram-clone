@@ -3,7 +3,7 @@ import 'package:instagram_clone/providers/Profile/user_data.dart';
 import 'package:instagram_clone/widgets/ProfileWidgets/profile_buttons.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
-import 'EditProfileTextForm.dart';
+import 'edit_profile_text_form.dart';
 
 class BottomModalEditBar extends StatefulWidget {
   const BottomModalEditBar({Key? key}) : super(key: key);
@@ -56,7 +56,7 @@ class _BottomModalEditBarState extends State<BottomModalEditBar> {
           FractionallySizedBox(
             widthFactor: 0.8,
             child: EditProfileTextForm(
-              icon: Icon(Icons.person),
+              icon: const Icon(Icons.person),
               hintText: "Enter a display name",
               labelText: "Display Name",
               errorMessage: "No Special Characters allowed",
@@ -73,8 +73,8 @@ class _BottomModalEditBarState extends State<BottomModalEditBar> {
             child: ProfileButton(
                 onTap: () {
                   if (userNameKey.currentState!.validate() && userDisplayNameKey.currentState!.validate()) {
-                    context.read<UserData>().UpdateUserName(userNameController.text);
-                    context.read<UserData>().UpdateUserDisplayName(userDisplayNameController.text);
+                    context.read<UserData>().updateUserName(userNameController.text);
+                    context.read<UserData>().updateUserDisplayName(userDisplayNameController.text);
                     Navigator.pop(context);
                   }
                 },
