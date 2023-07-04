@@ -32,14 +32,14 @@ class _MainPageState extends State<MainPage> {
     ),
     NavigationDestination(
       icon: Icon(
-          Icons.search,
+        Icons.search,
         color: appTertiaryColour,
       ),
       label: "Search",
     ),
     NavigationDestination(
       icon: Icon(
-          Icons.add_box_outlined,
+        Icons.add_box_outlined,
         color: appTertiaryColour,
       ),
       label: "New Post",
@@ -76,25 +76,24 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: appPrimaryColour,
-      bottomNavigationBar: NavBar(
-        destinationsIconList: destinationIconsList,
-        pageIndex: pageIndex,
-        pageChaneCallback: pageChange,
-      ),
-      body: StreamBuilder<User?>(
-        stream: FirebaseAuth.instance.authStateChanges(),
-        builder: (context, snapshot) {
-          //Returns a different page depending on if a user is logged in or not
-          if (snapshot.hasData) {
-            return destinationsList[pageIndex];
-          }
-          else {
-            return const LandingPage();
-          }
-        },
-      ),
+    return StreamBuilder<User?>(
+      stream: FirebaseAuth.instance.authStateChanges(),
+      builder: (context, snapshot) {
+        //Returns a different page depending on if a user is logged in or not
+        if (snapshot.hasData) {
+          return Scaffold(
+            backgroundColor: appPrimaryColour,
+            bottomNavigationBar: NavBar(
+              destinationsIconList: destinationIconsList,
+              pageIndex: pageIndex,
+              pageChaneCallback: pageChange,
+            ),
+            body: destinationsList[pageIndex],
+          );
+        } else {
+          return const LandingPage();
+        }
+      },
     );
   }
 }

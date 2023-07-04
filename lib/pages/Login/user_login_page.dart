@@ -8,26 +8,39 @@ I don't forget.
  */
 
 import 'package:flutter/material.dart';
+import 'package:instagram_clone/extensions/email_validator.dart';
 import 'package:instagram_clone/pages/UserRegistration/user_registration_page.dart';
 import 'package:instagram_clone/pages/main_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: LoginPage(),
-    );
-  }
-}
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  LoginPage({Key? key}) : super(key: key);
+
+  final userNameController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  final GlobalKey<FormState> userNameKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> passwordKey = GlobalKey<FormState>();
+
+  Future<void> signInUser(BuildContext context) async {
+    //Uses this method if the username is an email
+    if (userNameController.text.isValidEmail()) {
+      print("signing in");
+
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: userNameController.text,
+        password: passwordController.text,
+      );
+
+      if (FirebaseAuth.instance.currentUser != null) {
+        if (context.mounted)
+          Navigator.of(context).pop();
+      }
+
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -58,26 +71,27 @@ class LoginPage extends StatelessWidget {
                       height: 80.0,
                     ),
                     const SizedBox(height: 40.0),
-                    const TextField(
-                      decoration: InputDecoration(
+                    TextFormField(
+                      key: userNameKey,
+                      controller: userNameController,
+                      decoration: const InputDecoration(
                         labelText: 'Username, email address, or mobile number',
                       ),
                     ),
                     const SizedBox(height: 16.0),
-                    const TextField(
+                    TextFormField(
+                      key: passwordKey,
+                      controller: passwordController,
                       obscureText: true,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         labelText: 'Password',
                       ),
                     ),
                     const SizedBox(height: 16.0),
                     ElevatedButton(
-                      onPressed: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const MainPage(),
-                        ),
-                      ),
+                      onPressed: () async {
+                        signInUser(context);
+                      },
                       child: const Text('Log In'),
                     ),
                     const SizedBox(height: 16.0),

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:instagram_clone/widgets/ProfileWidgets/bottom_modal_edit_bar.dart';
 import 'package:instagram_clone/widgets/ProfileWidgets/profile_counters.dart';
@@ -37,6 +38,12 @@ class _ProfilePageState extends State<ProfilePage>
     super.initState();
   }
 
+
+  Future<void> signOutUser() async {
+    await FirebaseAuth.instance.signOut();
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,6 +53,15 @@ class _ProfilePageState extends State<ProfilePage>
           title: Text(
             context.watch<UserData>().userName,
           ),
+          actions: [
+            IconButton(
+              onPressed: () => signOutUser(),
+              icon: const Icon(
+                Icons.logout,
+                color: Colors.red,
+              ),
+            )
+          ],
         ),
         body: Column(
           children: [
