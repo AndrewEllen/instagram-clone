@@ -29,8 +29,9 @@ class LoginPage extends StatelessWidget {
       print("signing in");
 
       await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: userNameController.text,
-        password: passwordController.text,
+        //Trim removes any spaces at the beginning and end of the string.
+        email: userNameController.text.trim(),
+        password: passwordController.text.trim(),
       );
 
       if (FirebaseAuth.instance.currentUser != null) {

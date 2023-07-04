@@ -4,6 +4,7 @@ import 'package:instagram_clone/pages/LandingPage/landing_page.dart';
 import 'package:instagram_clone/pages/NewPost/new_post_page.dart';
 import 'package:instagram_clone/pages/Profile/profile_page.dart';
 import 'package:instagram_clone/pages/Search/search_page.dart';
+import 'package:instagram_clone/pages/UserRegistration/user_registration_confirmation_email.dart';
 import 'package:instagram_clone/widgets/MainAppWidgets/nav_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../constants.dart';
@@ -17,6 +18,7 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int pageIndex = 0;
+  late bool _isUserEmailVerified = false;
 
   List<NavigationDestination> destinationIconsList = [
     NavigationDestination(
@@ -74,6 +76,20 @@ class _MainPageState extends State<MainPage> {
     });
   }
 
+  void checkUserVerificationStatus() {
+    _isUserEmailVerified = FirebaseAuth.instance.currentUser!.emailVerified;
+  }
+
+  @override
+  void initState() {
+    if (FirebaseAuth.instance.currentUser != null) {
+      checkUserVerificationStatus();
+    }
+    super.initState();
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<User?>(
@@ -81,7 +97,8 @@ class _MainPageState extends State<MainPage> {
       builder: (context, snapshot) {
         //Returns a different page depending on if a user is logged in or not
         if (snapshot.hasData) {
-          return Scaffold(
+          checkUserVerificationStatus();
+          return _isUserEmailVerified ? Scaffold(
             backgroundColor: appPrimaryColour,
             bottomNavigationBar: NavBar(
               destinationsIconList: destinationIconsList,
@@ -89,11 +106,11 @@ class _MainPageState extends State<MainPage> {
               pageChaneCallback: pageChange,
             ),
             body: destinationsList[pageIndex],
-          );
+          ) : const UserRegistrationConfirmationEmail();
         } else {
           //resetting pageindex if user logs out
           pageIndex = 0;
-          return const LandingPage();
+          return LandingPage();
         }
       },
     );

@@ -66,9 +66,7 @@ class UserRegistrationEmailSignup extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => UserRegistrationConfirmationEmail(
-                              email: _emailController.text,
-                            ),
+                            builder: (context) => const UserRegistrationConfirmationEmail(),
                           ),
                         );
                       },
