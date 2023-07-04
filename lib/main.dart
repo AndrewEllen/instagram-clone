@@ -3,8 +3,17 @@ import 'package:instagram_clone/pages/LandingPage/landing_page.dart';
 import 'package:instagram_clone/constants.dart';
 import 'package:instagram_clone/providers/Profile/user_data.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  /// Why WidgetsFlutterBidning is used
+  /// https://stackoverflow.com/questions/63873338/what-does-widgetsflutterbinding-ensureinitialized-do
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   runApp(
     MultiProvider(
       providers: [
