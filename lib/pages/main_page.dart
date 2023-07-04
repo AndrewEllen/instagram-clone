@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_clone/pages/Home/home_page.dart';
+import 'package:instagram_clone/pages/LandingPage/landing_page.dart';
 import 'package:instagram_clone/pages/NewPost/new_post_page.dart';
 import 'package:instagram_clone/pages/Profile/profile_page.dart';
 import 'package:instagram_clone/pages/Search/search_page.dart';
 import 'package:instagram_clone/widgets/MainAppWidgets/nav_bar.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
 import '../constants.dart';
 
 class MainPage extends StatefulWidget {
@@ -82,7 +83,20 @@ class _MainPageState extends State<MainPage> {
         pageIndex: pageIndex,
         pageChaneCallback: pageChange,
       ),
-      body: destinationsList[pageIndex],
+      body: StreamBuilder<User?>(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot) {
+          //Returns a different page depending on if a user is logged in or not
+          if (snapshot.hasData) {
+            return destinationsList[pageIndex];
+          }
+          else {
+            return const LandingPage();
+          }
+        },
+      ),
     );
   }
 }
+
+//

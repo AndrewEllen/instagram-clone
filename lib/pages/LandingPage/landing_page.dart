@@ -10,12 +10,7 @@ class LandingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Instagram Clone Landing Page',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: Scaffold(
+    return Scaffold(
         body: Container(
           padding: const EdgeInsets.all(40.0),
           child: Column(
@@ -73,7 +68,6 @@ class LandingPage extends StatelessWidget {
             ],
           ),
         ),
-      ),
     );
   }
 }
