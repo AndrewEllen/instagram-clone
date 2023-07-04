@@ -11,11 +11,15 @@ void main() {
 class LandingPage extends StatelessWidget {
   LandingPage({super.key});
 
+  final emailController = TextEditingController();
   final userNameController = TextEditingController();
   final passwordController = TextEditingController();
+  final phoneController = TextEditingController();
 
+  final GlobalKey<FormState> emailKey = GlobalKey<FormState>();
   final GlobalKey<FormState> userNameKey = GlobalKey<FormState>();
   final GlobalKey<FormState> passwordKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> phoneKey = GlobalKey<FormState>();
 
   Future<void> sendVerificationEmail(BuildContext context) async {
     final user = FirebaseAuth.instance.currentUser!;
@@ -32,11 +36,17 @@ class LandingPage extends StatelessWidget {
 
   Future<void> signUpUser(BuildContext context) async {
     await FirebaseAuth.instance.createUserWithEmailAndPassword(
-      email: userNameController.text.trim(),
+      email: emailController.text.trim(),
       password: passwordController.text.trim(),
     );
 
+
     if (FirebaseAuth.instance.currentUser != null) {
+
+      FirebaseAuth.instance.currentUser!.updateDisplayName(userNameController.text.trim());
+      ///Phone numbers need verified
+      //FirebaseAuth.instance.currentUser!.updatePhoneNumber(phoneController.text.trim() as PhoneAuthCredential);
+
       if (context.mounted) {
         sendVerificationEmail(context);
       }
@@ -63,26 +73,31 @@ class LandingPage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 30.0),
+
+                ///Needs Verification
                 TextFormField(
-                  key: userNameKey,
-                  controller: userNameController,
+                  key: emailKey,
+                  controller: emailController,
                   decoration: const InputDecoration(
                     labelText: 'Email',
                   ),
                 ),
                 const SizedBox(height: 20.0),
 
-                ///Unused currently
-                const TextField(
-                  decoration: InputDecoration(
-                    labelText: 'Full Name',
+                ///Needs Verification
+                TextFormField(
+                  key: phoneKey,
+                  controller: phoneController,
+                  decoration: const InputDecoration(
+                    labelText: 'Phone Number',
                   ),
                 ),
                 const SizedBox(height: 20.0),
 
-                ///Unused currently
-                const TextField(
-                  decoration: InputDecoration(
+                TextFormField(
+                  key: userNameKey,
+                  controller: userNameController,
+                  decoration: const InputDecoration(
                     labelText: 'Username',
                   ),
                 ),

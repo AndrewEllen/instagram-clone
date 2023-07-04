@@ -7,7 +7,9 @@ import 'package:instagram_clone/pages/Search/search_page.dart';
 import 'package:instagram_clone/pages/UserRegistration/user_registration_confirmation_email.dart';
 import 'package:instagram_clone/widgets/MainAppWidgets/nav_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
 import '../constants.dart';
+import '../providers/Profile/user_data.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -80,6 +82,12 @@ class _MainPageState extends State<MainPage> {
     _isUserEmailVerified = FirebaseAuth.instance.currentUser!.emailVerified;
   }
 
+  void setUserNameForSession() {
+    if (FirebaseAuth.instance.currentUser!.displayName != null) {
+      context.read<UserData>().updateUserDisplayName(FirebaseAuth.instance.currentUser!.displayName!);
+    }
+  }
+
   @override
   void initState() {
     if (FirebaseAuth.instance.currentUser != null) {
@@ -98,6 +106,7 @@ class _MainPageState extends State<MainPage> {
         //Returns a different page depending on if a user is logged in or not
         if (snapshot.hasData) {
           checkUserVerificationStatus();
+          setUserNameForSession();
           return _isUserEmailVerified ? Scaffold(
             backgroundColor: appPrimaryColour,
             bottomNavigationBar: NavBar(
