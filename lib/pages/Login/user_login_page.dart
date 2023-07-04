@@ -34,8 +34,11 @@ class LoginPage extends StatelessWidget {
       );
 
       if (FirebaseAuth.instance.currentUser != null) {
-        if (context.mounted)
+        //Use context.mounted to avoid error message
+        //Not entirely sure what the difference it makes is
+        if (context.mounted) {
           Navigator.of(context).pop();
+        }
       }
 
     }

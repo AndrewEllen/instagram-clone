@@ -91,6 +91,8 @@ class _MainPageState extends State<MainPage> {
             body: destinationsList[pageIndex],
           );
         } else {
+          //resetting pageindex if user logs out
+          pageIndex = 0;
           return const LandingPage();
         }
       },
