@@ -3,7 +3,7 @@ name: Flutter CI/CD
 on:
   pull_request:
     paths-ignore:
-    'lib/firebase_options.dart'
+      - 'lib/firebase_options.dart'
     branches:
       - dev
 
