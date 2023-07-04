@@ -117,7 +117,7 @@ class _MainPageState extends State<MainPage> {
             body: destinationsList[pageIndex],
           ) : const UserRegistrationConfirmationEmail();
         } else {
-          //resetting pageindex if user logs out
+          //resetting pageIndex if user logs out
           pageIndex = 0;
           return LandingPage();
         }

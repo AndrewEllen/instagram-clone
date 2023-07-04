@@ -10,7 +10,6 @@ I don't forget.
 import 'package:flutter/material.dart';
 import 'package:instagram_clone/extensions/email_validator.dart';
 import 'package:instagram_clone/pages/UserRegistration/user_registration_page.dart';
-import 'package:instagram_clone/pages/main_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 
@@ -26,7 +25,6 @@ class LoginPage extends StatelessWidget {
   Future<void> signInUser(BuildContext context) async {
     //Uses this method if the username is an email
     if (userNameController.text.isValidEmail()) {
-      print("signing in");
 
       await FirebaseAuth.instance.signInWithEmailAndPassword(
         //Trim removes any spaces at the beginning and end of the string.

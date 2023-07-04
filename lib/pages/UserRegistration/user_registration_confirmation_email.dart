@@ -125,7 +125,6 @@ class _UserRegistrationConfirmationEmailState
                   ElevatedButton(
                     onPressed: () {
                       if (FirebaseAuth.instance.currentUser!.emailVerified) {
-                        print("verified");
                         timer?.cancel();
                         Navigator.push(
                           context,
@@ -133,9 +132,6 @@ class _UserRegistrationConfirmationEmailState
                             builder: (context) => const MainPage(),
                           ),
                         );
-                      } else {
-                        print(FirebaseAuth.instance.currentUser!.emailVerified);
-                        print("unverified");
                       }
                     },
                     style: ButtonStyle(
