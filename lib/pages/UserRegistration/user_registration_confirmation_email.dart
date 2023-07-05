@@ -7,13 +7,74 @@ I don't forget
 -Lewis
  */
 
+import 'dart:async';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:instagram_clone/pages/main_page.dart';
 
-class UserRegistrationConfirmationEmail extends StatelessWidget {
-  final String email;
+class UserRegistrationConfirmationEmail extends StatefulWidget {
+  const UserRegistrationConfirmationEmail({Key? key}) : super(key: key);
 
-  // Constructor to initialize the email parameter
-  const UserRegistrationConfirmationEmail({Key? key, required this.email}) : super(key: key);
+  @override
+  State<UserRegistrationConfirmationEmail> createState() =>
+      _UserRegistrationConfirmationEmailState();
+}
+
+class _UserRegistrationConfirmationEmailState
+    extends State<UserRegistrationConfirmationEmail> {
+  final user = FirebaseAuth.instance.currentUser!;
+  late bool _isUserEmailVerified =
+      FirebaseAuth.instance.currentUser!.emailVerified;
+  Timer? timer;
+
+  Future<void> sendVerificationEmail(User user) async {
+    if (!user.emailVerified) {
+      await user.sendEmailVerification();
+    }
+  }
+
+  Future isUserVerified(User user) async {
+
+    await user.reload();
+
+    setState(() {
+      _isUserEmailVerified = user.emailVerified;
+    });
+
+    if (_isUserEmailVerified) {
+      timer?.cancel();
+
+      if (context.mounted) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const MainPage(),
+          ),
+        );
+      }
+
+    }
+  }
+
+  @override
+  void initState() {
+    if (!_isUserEmailVerified) {
+      timer = Timer.periodic(
+        const Duration(seconds: 3),
+        (_) => isUserVerified(user),
+      );
+    }
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    timer?.cancel();
+
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,9 +83,21 @@ class UserRegistrationConfirmationEmail extends StatelessWidget {
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pop(context), // Navigates back when the back arrow button is pressed
+          onPressed: () async {
+            await FirebaseAuth.instance.signOut();
+            timer?.cancel();
+            if (context.mounted) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const MainPage(),
+                ),
+              );
+            }
+            },
         ),
-        backgroundColor: Colors.white, // Sets the background color of the app bar
+        backgroundColor:
+            Colors.white, // Sets the background color of the app bar
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -40,31 +113,40 @@ class UserRegistrationConfirmationEmail extends StatelessWidget {
             ),
             const SizedBox(height: 30.0),
             Text(
-              'We have sent a confirmation code to $email. Please enter the code below to continue.',
+              'We have sent a confirmation link to ${FirebaseAuth.instance.currentUser!.email}. Please follow the link to continue.',
               style: const TextStyle(
                 fontSize: 16,
               ),
             ),
             const SizedBox(height: 30.0),
-            const TextField(
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                labelText: 'Confirmation code', // Placeholder text for the input field
-                labelStyle: TextStyle(color: Colors.grey), // Sets the color of the placeholder text
-                border: OutlineInputBorder(), // Adds a border around the input field
-              ),
-            ),
-            const SizedBox(height: 30.0),
             Center(
-              child: ElevatedButton(
-                onPressed: () {
-                  // TODO: Add functionality to 'continue'
-                  // This function will be called when the button is pressed
-                },
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.blue), // Sets the background color of the button
-                ),
-                child: const Text('Continue'), // Text displayed on the button
+              child: Column(
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      if (FirebaseAuth.instance.currentUser!.emailVerified) {
+                        timer?.cancel();
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const MainPage(),
+                          ),
+                        );
+                      }
+                    },
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors
+                          .blue), // Sets the background color of the button
+                    ),
+                    child:
+                        const Text('Continue'), // Text displayed on the button
+                  ),
+                  TextButton(
+                    onPressed: () => sendVerificationEmail(user),
+                    child: const Text(
+                        'Send new Email Verification Link'), // Text displayed
+                  ),
+                ],
               ),
             ),
           ],
