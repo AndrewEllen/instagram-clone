@@ -49,7 +49,7 @@ class _EnterConfirmationPageState extends State<EnterConfirmationPage> {
 
   }
 
-  Future verifyPhone() async {
+  Future requestSMS() async {
     await FirebaseAuth.instance.verifyPhoneNumber(
       phoneNumber: phoneController.text,
       verificationCompleted: (PhoneAuthCredential credential) {
@@ -123,7 +123,7 @@ class _EnterConfirmationPageState extends State<EnterConfirmationPage> {
 
               Center(
                 child: ElevatedButton(
-                  onPressed: () => verifyPhone(),
+                  onPressed: () => requestSMS(),
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(
                         Colors.blue), // Sets the background color of the button

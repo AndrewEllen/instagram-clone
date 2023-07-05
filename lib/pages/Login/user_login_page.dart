@@ -31,8 +31,26 @@ class _LoginPageState extends State<LoginPage> {
 
   final GlobalKey<FormState> passwordKey = GlobalKey<FormState>();
 
-  Future<void> requestSMSCode(BuildContext context) async {
+  late String verificationID;
 
+  Future requestSMS() async {
+    await FirebaseAuth.instance.verifyPhoneNumber(
+      phoneNumber: userNameController.text,
+      verificationCompleted: (PhoneAuthCredential credential) {
+
+      },
+      verificationFailed: (FirebaseAuthException error) {
+        if (error.code == 'invalid-phone-number') {
+          debugPrint("Invalid phone number");
+        }
+      },
+      codeSent: (String verificationId, int? resendToken) async {
+
+        verificationID = verificationId;
+
+      },
+      codeAutoRetrievalTimeout: (String verificationId) {},
+    );
   }
 
   Future<void> signInUser(BuildContext context) async {
@@ -49,6 +67,19 @@ class _LoginPageState extends State<LoginPage> {
       if (FirebaseAuth.instance.currentUser != null) {
         //Use context.mounted to avoid error message
         //Not entirely sure what the difference it makes is
+        if (context.mounted) {
+          Navigator.of(context).pop();
+        }
+      }
+
+    }
+    else if (userNameController.text.isValidPhoneNumber()) {
+
+      await FirebaseAuth.instance.signInWithCredential(
+          PhoneAuthProvider.credential(verificationId: verificationID, smsCode: passwordController.text)
+      );
+
+      if (FirebaseAuth.instance.currentUser!.phoneNumber != null) {
         if (context.mounted) {
           Navigator.of(context).pop();
         }
@@ -167,7 +198,7 @@ class _LoginPageState extends State<LoginPage> {
                     const SizedBox(height: 16.0),
                     _phoneSignin ? ElevatedButton(
                       onPressed: () async {
-                        requestSMSCode(context);
+                        requestSMS();
                       },
                       child: const Text('Request SMS Code'),
                     ) : const SizedBox.shrink(),
