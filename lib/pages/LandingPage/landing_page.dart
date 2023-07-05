@@ -17,12 +17,10 @@ class LandingPage extends StatelessWidget {
   final emailController = TextEditingController();
   final userNameController = TextEditingController();
   final passwordController = TextEditingController();
-  final phoneController = TextEditingController();
 
   final GlobalKey<FormState> emailKey = GlobalKey<FormState>();
   final GlobalKey<FormState> userNameKey = GlobalKey<FormState>();
   final GlobalKey<FormState> passwordKey = GlobalKey<FormState>();
-  final GlobalKey<FormState> phoneKey = GlobalKey<FormState>();
 
   Future<void> sendVerificationEmail(BuildContext context) async {
     final user = FirebaseAuth.instance.currentUser!;
@@ -47,8 +45,6 @@ class LandingPage extends StatelessWidget {
     if (FirebaseAuth.instance.currentUser != null) {
 
       FirebaseAuth.instance.currentUser!.updateDisplayName(userNameController.text.trim());
-      ///Phone numbers need verified
-      //FirebaseAuth.instance.currentUser!.updatePhoneNumber(phoneController.text.trim() as PhoneAuthCredential);
 
       if (context.mounted) {
         sendVerificationEmail(context);
@@ -98,32 +94,6 @@ class LandingPage extends StatelessWidget {
                   validator: (value) {
                     if (!value!.isValidEmail() && value!.isNotEmpty) {
                       return "Invalid Email";
-                    }
-                  },
-                ),
-                const SizedBox(height: 20.0),
-
-                ///Needs Verification
-                TextFormField(
-                  key: phoneKey,
-                  controller: phoneController,
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  decoration: InputDecoration(
-                    labelText: 'Mobile Number',
-                    focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: appSecondaryColour,
-                        )
-                    ),
-                    focusedErrorBorder: const OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Colors.red,
-                        )
-                    ),
-                  ),
-                  validator: (value) {
-                    if (!value!.isValidPhoneNumber() && value!.isNotEmpty) {
-                      return "Invalid Mobile Number";
                     }
                   },
                 ),

@@ -31,6 +31,10 @@ class _LoginPageState extends State<LoginPage> {
 
   final GlobalKey<FormState> passwordKey = GlobalKey<FormState>();
 
+  Future<void> requestSMSCode(BuildContext context) async {
+
+  }
+
   Future<void> signInUser(BuildContext context) async {
     //Uses this method if the username is an email
 
@@ -55,6 +59,7 @@ class _LoginPageState extends State<LoginPage> {
 
   late Color signInColour = appSecondaryColour;
   late bool _phoneSignin = false;
+  late bool _showPasswordBox = false;
   late String signInLabelText = "Sign in with Email or Mobile Number";
 
   @override
@@ -125,6 +130,7 @@ class _LoginPageState extends State<LoginPage> {
                             signInColour = Colors.green;
                             signInLabelText = "Logging in with Email";
                             _phoneSignin = false;
+                            _showPasswordBox = true;
                           });
                         }
                         else if (value!.isValidPhoneNumber()) {
@@ -132,6 +138,7 @@ class _LoginPageState extends State<LoginPage> {
                             signInColour = Colors.green;
                             signInLabelText = "Logging in with Mobile Number";
                             _phoneSignin = true;
+                            _showPasswordBox = true;
                           });
                         }
                         else if (value!.isEmpty) {
@@ -139,6 +146,7 @@ class _LoginPageState extends State<LoginPage> {
                             signInColour = appSecondaryColour;
                             signInLabelText = "Login with Email or Mobile Number";
                             _phoneSignin = false;
+                            _showPasswordBox = false;
                           });
                         }
                         else {
@@ -146,6 +154,7 @@ class _LoginPageState extends State<LoginPage> {
                             signInColour = Colors.red;
                             signInLabelText = "Login with Email or Mobile Number";
                             _phoneSignin = false;
+                            _showPasswordBox = false;
                           });
                         }
                       },
@@ -156,12 +165,23 @@ class _LoginPageState extends State<LoginPage> {
                       }
                     ),
                     const SizedBox(height: 16.0),
-                    userNameKey.currentState?.validate() ?? true ? TextFormField(
+                    _phoneSignin ? ElevatedButton(
+                      onPressed: () async {
+                        requestSMSCode(context);
+                      },
+                      child: const Text('Request SMS Code'),
+                    ) : const SizedBox.shrink(),
+                    _showPasswordBox ? TextFormField(
                       key: passwordKey,
                       controller: passwordController,
                       obscureText: true,
                       decoration: InputDecoration(
                         labelText: _phoneSignin ? "SMS Code" : 'Password',
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: appSecondaryColour,
+                            )
+                        ),
                       ),
                     ) : const SizedBox.shrink(),
                     const SizedBox(height: 16.0),

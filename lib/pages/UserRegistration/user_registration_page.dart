@@ -30,7 +30,7 @@ class SignupPageState extends State<SignupPage> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => EnterConfirmationPage(phoneNumber: phoneNumber),
+          builder: (context) => const EnterConfirmationPage(),
         ),
       );
     }
