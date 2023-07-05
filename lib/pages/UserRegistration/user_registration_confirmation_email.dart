@@ -11,6 +11,7 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:instagram_clone/pages/UserRegistration/user_registration_confirmation_page.dart';
 import 'package:instagram_clone/pages/main_page.dart';
 
 class UserRegistrationConfirmationEmail extends StatefulWidget {
@@ -49,7 +50,7 @@ class _UserRegistrationConfirmationEmailState
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const MainPage(),
+            builder: (context) => const EnterConfirmationPage(),
           ),
         );
       }
@@ -129,7 +130,7 @@ class _UserRegistrationConfirmationEmailState
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const MainPage(),
+                            builder: (context) => const EnterConfirmationPage(),
                           ),
                         );
                       }

@@ -8,22 +8,54 @@ I don't forget.
  */
 
 import 'package:flutter/material.dart';
+import 'package:instagram_clone/constants.dart';
 import 'package:instagram_clone/extensions/email_validator.dart';
+import 'package:instagram_clone/extensions/phone_validator.dart';
 import 'package:instagram_clone/pages/UserRegistration/user_registration_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 
-class LoginPage extends StatelessWidget {
-  LoginPage({Key? key}) : super(key: key);
+class LoginPage extends StatefulWidget {
+  const LoginPage({Key? key}) : super(key: key);
 
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   final userNameController = TextEditingController();
+
   final passwordController = TextEditingController();
 
   final GlobalKey<FormState> userNameKey = GlobalKey<FormState>();
+
   final GlobalKey<FormState> passwordKey = GlobalKey<FormState>();
+
+  late String verificationID;
+
+  Future requestSMS() async {
+    await FirebaseAuth.instance.verifyPhoneNumber(
+      phoneNumber: userNameController.text,
+      verificationCompleted: (PhoneAuthCredential credential) {
+
+      },
+      verificationFailed: (FirebaseAuthException error) {
+        if (error.code == 'invalid-phone-number') {
+          debugPrint("Invalid phone number");
+        }
+      },
+      codeSent: (String verificationId, int? resendToken) async {
+
+        verificationID = verificationId;
+
+      },
+      codeAutoRetrievalTimeout: (String verificationId) {},
+    );
+  }
 
   Future<void> signInUser(BuildContext context) async {
     //Uses this method if the username is an email
+
     if (userNameController.text.isValidEmail()) {
 
       await FirebaseAuth.instance.signInWithEmailAndPassword(
@@ -41,8 +73,25 @@ class LoginPage extends StatelessWidget {
       }
 
     }
+    else if (userNameController.text.isValidPhoneNumber()) {
+
+      await FirebaseAuth.instance.signInWithCredential(
+          PhoneAuthProvider.credential(verificationId: verificationID, smsCode: passwordController.text)
+      );
+
+      if (FirebaseAuth.instance.currentUser!.phoneNumber != null) {
+        if (context.mounted) {
+          Navigator.of(context).pop();
+        }
+      }
+
+    }
   }
 
+  late Color signInColour = appSecondaryColour;
+  late bool _phoneSignin = false;
+  late bool _showPasswordBox = false;
+  late String signInLabelText = "Sign in with Email or Mobile Number";
 
   @override
   Widget build(BuildContext context) {
@@ -74,21 +123,99 @@ class LoginPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 40.0),
                     TextFormField(
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
                       key: userNameKey,
                       controller: userNameController,
-                      decoration: const InputDecoration(
-                        labelText: 'Username, email address, or mobile number',
+                      decoration: InputDecoration(
+                        labelText: signInLabelText,
+                        labelStyle: defaultTextStyle.copyWith(
+                          color: signInColour,
+                        ),
+                        errorStyle: defaultTextStyle.copyWith(
+                          color: Colors.red,
+                        ),
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: signInColour,
+                          )
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: signInColour,
+                          )
+                        ),
+                        focusedErrorBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.red,
+                            )
+                        ),
+                        errorBorder: const UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.red,
+                          ),
+                        ),
                       ),
+                      onChanged: (value) {
+                        if (value.isValidEmail()) {
+                          setState(() {
+                            signInColour = Colors.green;
+                            signInLabelText = "Logging in with Email";
+                            _phoneSignin = false;
+                            _showPasswordBox = true;
+                          });
+                        }
+                        else if (value.isValidPhoneNumber()) {
+                          setState(() {
+                            signInColour = Colors.green;
+                            signInLabelText = "Logging in with Mobile Number";
+                            _phoneSignin = true;
+                            _showPasswordBox = true;
+                          });
+                        }
+                        else if (value.isEmpty) {
+                          setState(() {
+                            signInColour = appSecondaryColour;
+                            signInLabelText = "Login with Email or Mobile Number";
+                            _phoneSignin = false;
+                            _showPasswordBox = false;
+                          });
+                        }
+                        else {
+                          setState(() {
+                            signInColour = Colors.red;
+                            signInLabelText = "Login with Email or Mobile Number";
+                            _phoneSignin = false;
+                            _showPasswordBox = false;
+                          });
+                        }
+                      },
+                      validator: (value) {
+                        if (value!.isNotEmpty && !(value.isValidPhoneNumber() || value.isValidEmail())) {
+                          return "Invalid Email or Mobile Number";
+                        }
+                        return null;
+                      }
                     ),
                     const SizedBox(height: 16.0),
-                    TextFormField(
+                    _phoneSignin ? ElevatedButton(
+                      onPressed: () async {
+                        requestSMS();
+                      },
+                      child: const Text('Request SMS Code'),
+                    ) : const SizedBox.shrink(),
+                    _showPasswordBox ? TextFormField(
                       key: passwordKey,
                       controller: passwordController,
                       obscureText: true,
-                      decoration: const InputDecoration(
-                        labelText: 'Password',
+                      decoration: InputDecoration(
+                        labelText: _phoneSignin ? "SMS Code" : 'Password',
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: appSecondaryColour,
+                            )
+                        ),
                       ),
-                    ),
+                    ) : const SizedBox.shrink(),
                     const SizedBox(height: 16.0),
                     ElevatedButton(
                       onPressed: () async {
