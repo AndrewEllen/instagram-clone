@@ -16,7 +16,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 
 class LoginPage extends StatefulWidget {
-  LoginPage({Key? key}) : super(key: key);
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -156,7 +156,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                       onChanged: (value) {
-                        if (value!.isValidEmail()) {
+                        if (value.isValidEmail()) {
                           setState(() {
                             signInColour = Colors.green;
                             signInLabelText = "Logging in with Email";
@@ -164,7 +164,7 @@ class _LoginPageState extends State<LoginPage> {
                             _showPasswordBox = true;
                           });
                         }
-                        else if (value!.isValidPhoneNumber()) {
+                        else if (value.isValidPhoneNumber()) {
                           setState(() {
                             signInColour = Colors.green;
                             signInLabelText = "Logging in with Mobile Number";
@@ -172,7 +172,7 @@ class _LoginPageState extends State<LoginPage> {
                             _showPasswordBox = true;
                           });
                         }
-                        else if (value!.isEmpty) {
+                        else if (value.isEmpty) {
                           setState(() {
                             signInColour = appSecondaryColour;
                             signInLabelText = "Login with Email or Mobile Number";
@@ -190,9 +190,10 @@ class _LoginPageState extends State<LoginPage> {
                         }
                       },
                       validator: (value) {
-                        if (value!.isNotEmpty && !(value!.isValidPhoneNumber() || value!.isValidEmail())) {
+                        if (value!.isNotEmpty && !(value.isValidPhoneNumber() || value.isValidEmail())) {
                           return "Invalid Email or Mobile Number";
                         }
+                        return null;
                       }
                     ),
                     const SizedBox(height: 16.0),

@@ -10,7 +10,6 @@ I don't forget.
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:instagram_clone/extensions/phone_validator.dart';
-import 'package:instagram_clone/pages/Login/user_login_page.dart';
 import 'package:instagram_clone/pages/main_page.dart';
 
 import '../../constants.dart';
@@ -114,9 +113,10 @@ class _EnterConfirmationPageState extends State<EnterConfirmationPage> {
                   )),
                 ),
                 validator: (value) {
-                  if (!value!.isValidPhoneNumber() && value!.isNotEmpty) {
+                  if (!value!.isValidPhoneNumber() && value.isNotEmpty) {
                     return "Invalid Mobile Number";
                   }
+                  return null;
                 },
               ),
               const SizedBox(height: 20.0),

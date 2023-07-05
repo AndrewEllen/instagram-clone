@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:instagram_clone/constants.dart';
 import 'package:instagram_clone/extensions/email_validator.dart';
-import 'package:instagram_clone/extensions/phone_validator.dart';
 import 'package:instagram_clone/pages/Login/user_login_page.dart';
 
 import '../UserRegistration/user_registration_confirmation_email.dart';
@@ -92,9 +91,10 @@ class LandingPage extends StatelessWidget {
                     ),
                   ),
                   validator: (value) {
-                    if (!value!.isValidEmail() && value!.isNotEmpty) {
+                    if (!value!.isValidEmail() && value.isNotEmpty) {
                       return "Invalid Email";
                     }
+                    return null;
                   },
                 ),
                 const SizedBox(height: 20.0),
@@ -145,7 +145,7 @@ class LandingPage extends StatelessWidget {
                     onPressed: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => LoginPage(
+                        builder: (context) => const LoginPage(
 
                         ),
                       ),
