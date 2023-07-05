@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:instagram_clone/constants.dart';
 import 'package:instagram_clone/extensions/email_validator.dart';
 import 'package:instagram_clone/pages/Login/user_login_page.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import '../UserRegistration/user_registration_confirmation_email.dart';
 
@@ -63,15 +64,12 @@ class LandingPage extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text(
-                  'Instagram Clone',
-                  style: TextStyle(
-                    fontSize: 24.0,
-                    fontWeight: FontWeight.bold,
-                  ),
+                const SizedBox(height: 80.0),
+                Image.asset(
+                  'assets/logo.png',
+                  height: 80.0,
                 ),
-                const SizedBox(height: 30.0),
-
+                const SizedBox(height: 40.0),
                 ///Needs Verification
                 TextFormField(
                   key: emailKey,
@@ -153,6 +151,88 @@ class LandingPage extends StatelessWidget {
                     child: const Text(
                       "Login"
                     ),
+                ),
+                Row(
+                  children: [
+
+                    const Spacer(),
+
+                    Expanded(
+                      child: FractionallySizedBox(
+                        widthFactor: 3,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            border: Border(
+                              bottom: BorderSide(
+                                color: appTertiaryColour,
+                                width: 1
+                              )
+                            )
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    const Spacer(),
+
+                    Container(
+                      color: appPrimaryColour,
+                      padding: const EdgeInsets.only(
+                          left:8.0,
+                          right:8.0,
+                      ),
+                      margin: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "OR",
+                        style: defaultTextStyle.copyWith(
+                          fontWeight: FontWeight.w300,
+                        ),
+                      ),
+                    ),
+
+                    const Spacer(),
+
+                    Expanded(
+                      child: FractionallySizedBox(
+                        widthFactor: 3,
+                        child: Container(
+                          decoration: BoxDecoration(
+                              border: Border(
+                                  bottom: BorderSide(
+                                      color: appTertiaryColour,
+                                      width: 1
+                                  )
+                              )
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    const Spacer(),
+
+                  ],
+                ),
+
+                Center(
+                  child: Row(
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {},
+                        child: Row(
+                          children: [
+                            Icon(
+                              MdiIcons.google,
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      ElevatedButton(
+                        onPressed: () {},
+                        child: const Text('Facebook'),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
