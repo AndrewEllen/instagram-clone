@@ -11,7 +11,7 @@ import 'firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  /// Why WidgetsFlutterBidning is used
+  /// Why WidgetsFlutterBinding is used
   /// https://stackoverflow.com/questions/63873338/what-does-widgetsflutterbinding-ensureinitialized-do
   /// Essentially Flutter is having to call native code so this allows it to interact with the engine.
   await Firebase.initializeApp(
