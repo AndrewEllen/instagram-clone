@@ -1,5 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:instagram_clone/constants.dart';
+import 'package:instagram_clone/extensions/email_validator.dart';
+import 'package:instagram_clone/extensions/phone_validator.dart';
 import 'package:instagram_clone/pages/Login/user_login_page.dart';
 
 import '../UserRegistration/user_registration_confirmation_email.dart';
@@ -78,9 +81,25 @@ class LandingPage extends StatelessWidget {
                 TextFormField(
                   key: emailKey,
                   controller: emailController,
-                  decoration: const InputDecoration(
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  decoration: InputDecoration(
                     labelText: 'Email',
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: appSecondaryColour,
+                      )
+                    ),
+                    focusedErrorBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.red,
+                        )
+                    ),
                   ),
+                  validator: (value) {
+                    if (!value!.isValidEmail() && value!.isNotEmpty) {
+                      return "Invalid Email";
+                    }
+                  },
                 ),
                 const SizedBox(height: 20.0),
 
@@ -88,17 +107,43 @@ class LandingPage extends StatelessWidget {
                 TextFormField(
                   key: phoneKey,
                   controller: phoneController,
-                  decoration: const InputDecoration(
-                    labelText: 'Phone Number',
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  decoration: InputDecoration(
+                    labelText: 'Mobile Number',
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: appSecondaryColour,
+                        )
+                    ),
+                    focusedErrorBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.red,
+                        )
+                    ),
                   ),
+                  validator: (value) {
+                    if (!value!.isValidPhoneNumber() && value!.isNotEmpty) {
+                      return "Invalid Mobile Number";
+                    }
+                  },
                 ),
                 const SizedBox(height: 20.0),
 
                 TextFormField(
                   key: userNameKey,
                   controller: userNameController,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     labelText: 'Username',
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: appSecondaryColour,
+                        )
+                    ),
+                    focusedErrorBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.red,
+                        )
+                    ),
                   ),
                 ),
                 const SizedBox(height: 20.0),
@@ -107,8 +152,18 @@ class LandingPage extends StatelessWidget {
                   key: passwordKey,
                   controller: passwordController,
                   obscureText: true,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     labelText: 'Password',
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: appSecondaryColour,
+                        )
+                    ),
+                    focusedErrorBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.red,
+                        )
+                    ),
                   ),
                 ),
                 const SizedBox(height: 30.0),
