@@ -1,5 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_signin_button/button_list.dart';
+import 'package:flutter_signin_button/button_view.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:instagram_clone/constants.dart';
 import 'package:instagram_clone/extensions/email_validator.dart';
 import 'package:instagram_clone/pages/Login/user_login_page.dart';
@@ -20,6 +23,26 @@ class LandingPage extends StatelessWidget {
   final GlobalKey<FormState> emailKey = GlobalKey<FormState>();
   final GlobalKey<FormState> userNameKey = GlobalKey<FormState>();
   final GlobalKey<FormState> passwordKey = GlobalKey<FormState>();
+
+  Future signInWithFacebook() async {
+
+
+    return;
+  }
+
+  Future<UserCredential> signInWithGoogle() async {
+
+    final GoogleSignInAccount? user = await GoogleSignIn().signIn();
+
+    final GoogleSignInAuthentication? auth = await user?.authentication;
+
+    final credential = GoogleAuthProvider.credential(
+      accessToken: auth?.accessToken,
+      idToken: auth?.idToken,
+    );
+
+    return await FirebaseAuth.instance.signInWithCredential(credential);
+  }
 
   Future<void> sendVerificationEmail(BuildContext context) async {
     final user = FirebaseAuth.instance.currentUser!;
@@ -63,15 +86,12 @@ class LandingPage extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text(
-                  'Instagram Clone',
-                  style: TextStyle(
-                    fontSize: 24.0,
-                    fontWeight: FontWeight.bold,
-                  ),
+                const SizedBox(height: 80.0),
+                Image.asset(
+                  'assets/logo.png',
+                  height: 80.0,
                 ),
-                const SizedBox(height: 30.0),
-
+                const SizedBox(height: 40.0),
                 ///Needs Verification
                 TextFormField(
                   key: emailKey,
@@ -153,6 +173,85 @@ class LandingPage extends StatelessWidget {
                     child: const Text(
                       "Login"
                     ),
+                ),
+                Row(
+                  children: [
+
+                    const Spacer(),
+
+                    Expanded(
+                      child: FractionallySizedBox(
+                        widthFactor: 3,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            border: Border(
+                              bottom: BorderSide(
+                                color: appTertiaryColour,
+                                width: 1
+                              )
+                            )
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    const Spacer(),
+
+                    Container(
+                      color: appPrimaryColour,
+                      padding: const EdgeInsets.only(
+                          left:8.0,
+                          right:8.0,
+                      ),
+                      margin: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "OR",
+                        style: defaultTextStyle.copyWith(
+                          fontWeight: FontWeight.w300,
+                        ),
+                      ),
+                    ),
+
+                    const Spacer(),
+
+                    Expanded(
+                      child: FractionallySizedBox(
+                        widthFactor: 3,
+                        child: Container(
+                          decoration: BoxDecoration(
+                              border: Border(
+                                  bottom: BorderSide(
+                                      color: appTertiaryColour,
+                                      width: 1
+                                  )
+                              )
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    const Spacer(),
+
+                  ],
+                ),
+
+                //https://developers.google.com/identity/branding-guidelines Branding guidelines
+
+                Center(
+                  child: Column(
+                    children: [
+                      SignInButton(
+                        Buttons.Google,
+                        text: "Sign in with Google",
+                        onPressed: () => signInWithGoogle(),
+                      ),
+                      SignInButton(
+                        Buttons.Facebook,
+                        text: "Sign in with Facebook",
+                        onPressed: () => signInWithFacebook(),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
