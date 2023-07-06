@@ -11,8 +11,9 @@ import 'package:flutter/material.dart';
 import 'package:instagram_clone/constants.dart';
 import 'package:instagram_clone/extensions/email_validator.dart';
 import 'package:instagram_clone/extensions/phone_validator.dart';
-import 'package:instagram_clone/pages/UserRegistration/user_registration_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
+import '../UserRegistration/user_signup.dart';
 
 
 class LoginPage extends StatefulWidget {
