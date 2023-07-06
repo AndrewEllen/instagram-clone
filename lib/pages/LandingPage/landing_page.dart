@@ -4,10 +4,7 @@ import 'package:flutter_signin_button/button_list.dart';
 import 'package:flutter_signin_button/button_view.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:instagram_clone/constants.dart';
-import 'package:instagram_clone/extensions/email_validator.dart';
 import 'package:instagram_clone/pages/Login/user_login_page.dart';
-
-import '../UserRegistration/user_registration_confirmation_email.dart';
 import '../UserRegistration/user_signup.dart';
 
 void main() {

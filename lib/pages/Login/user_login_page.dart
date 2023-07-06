@@ -129,9 +129,9 @@ class _LoginPageState extends State<LoginPage> {
                       controller: userNameController,
                       decoration: InputDecoration(
                         labelText: signInLabelText,
-                        labelStyle: defaultTextStyle.copyWith(
+                        labelStyle: _showPasswordBox ? defaultTextStyle.copyWith(
                           color: signInColour,
-                        ),
+                        ): null,
                         errorStyle: defaultTextStyle.copyWith(
                           color: Colors.red,
                         ),
@@ -207,7 +207,7 @@ class _LoginPageState extends State<LoginPage> {
                     _showPasswordBox ? TextFormField(
                       key: passwordKey,
                       controller: passwordController,
-                      obscureText: true,
+                      obscureText: !_phoneSignin,
                       decoration: InputDecoration(
                         labelText: _phoneSignin ? "SMS Code" : 'Password',
                         focusedBorder: OutlineInputBorder(

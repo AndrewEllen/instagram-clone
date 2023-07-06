@@ -66,98 +66,128 @@ class _SignupPageState extends State<SignupPage> {
       ),
       body: SingleChildScrollView(
         physics: const NeverScrollableScrollPhysics(),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const SizedBox(height: 80.0),
-            Image.asset(
-              'assets/logo.png',
-              height: 80.0,
-            ),
-            const SizedBox(height: 40.0),
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const SizedBox(height: 80.0),
+              Image.asset(
+                'assets/logo.png',
+                height: 80.0,
+              ),
+              const SizedBox(height: 40.0),
 
-            ///Needs Verification
-            TextFormField(
-              key: emailKey,
-              controller: emailController,
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-              decoration: InputDecoration(
-              labelText: "Email",
-              labelStyle: defaultTextStyle.copyWith(
-                color: appSecondaryColour,
-              ),
-              errorStyle: defaultTextStyle.copyWith(
-                color: Colors.red,
-              ),
-              border: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: appSecondaryColour,
-                  )
-              ),
-              focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: appSecondaryColour,
-                  )
-              ),
-              focusedErrorBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Colors.red,
-                  )
-              ),
-              errorBorder: const UnderlineInputBorder(
-                borderSide: BorderSide(
+              ///Needs Verification
+              TextFormField(
+                key: emailKey,
+                controller: emailController,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                decoration: InputDecoration(
+                labelText: "Email",
+                errorStyle: defaultTextStyle.copyWith(
                   color: Colors.red,
                 ),
-              ),
-            ),
-              validator: (value) {
-                if (!value!.isValidEmail() && value.isNotEmpty) {
-                  return "Invalid Email";
-                }
-                return null;
-              },
-            ),
-            const SizedBox(height: 20.0),
-
-            TextFormField(
-              key: userNameKey,
-              controller: userNameController,
-              decoration: InputDecoration(
-                labelText: 'Username',
+                border: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: appSecondaryColour,
+                    )
+                ),
                 focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(
                       color: appSecondaryColour,
-                    )),
+                    )
+                ),
                 focusedErrorBorder: const OutlineInputBorder(
                     borderSide: BorderSide(
                       color: Colors.red,
-                    )),
+                    )
+                ),
+                errorBorder: const UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Colors.red,
+                  ),
+                ),
               ),
-            ),
-            const SizedBox(height: 20.0),
+                validator: (value) {
+                  if (!value!.isValidEmail() && value.isNotEmpty) {
+                    return "Invalid Email";
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 20.0),
 
-            TextFormField(
-              key: passwordKey,
-              controller: passwordController,
-              obscureText: true,
-              decoration: InputDecoration(
-                labelText: 'Password',
-                focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: appSecondaryColour,
-                    )),
-                focusedErrorBorder: const OutlineInputBorder(
+              TextFormField(
+                key: userNameKey,
+                controller: userNameController,
+                decoration: InputDecoration(
+                  labelText: "Username",
+                  errorStyle: defaultTextStyle.copyWith(
+                    color: Colors.red,
+                  ),
+                  border: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: appSecondaryColour,
+                      )
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: appSecondaryColour,
+                      )
+                  ),
+                  focusedErrorBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.red,
+                      )
+                  ),
+                  errorBorder: const UnderlineInputBorder(
                     borderSide: BorderSide(
                       color: Colors.red,
-                    )),
+                    ),
+                  ),
+                ),
               ),
-            ),
-            const SizedBox(height: 30.0),
-            ElevatedButton(
-              onPressed: () => signUpUser(context),
-              child: const Text('Signup'),
-            ),
-          ],
+              const SizedBox(height: 20.0),
+
+              TextFormField(
+                key: passwordKey,
+                controller: passwordController,
+                obscureText: true,
+                decoration: InputDecoration(
+                  labelText: "Password",
+                  errorStyle: defaultTextStyle.copyWith(
+                    color: Colors.red,
+                  ),
+                  border: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: appSecondaryColour,
+                      )
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: appSecondaryColour,
+                      )
+                  ),
+                  focusedErrorBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.red,
+                      )
+                  ),
+                  errorBorder: const UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.red,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 30.0),
+              ElevatedButton(
+                onPressed: () => signUpUser(context),
+                child: const Text('Signup'),
+              ),
+            ],
+          ),
         ),
       ),
     );
