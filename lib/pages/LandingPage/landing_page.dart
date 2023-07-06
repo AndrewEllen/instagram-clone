@@ -1,10 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_signin_button/button_list.dart';
+import 'package:flutter_signin_button/button_view.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:instagram_clone/constants.dart';
 import 'package:instagram_clone/extensions/email_validator.dart';
 import 'package:instagram_clone/pages/Login/user_login_page.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import '../UserRegistration/user_registration_confirmation_email.dart';
 
@@ -22,6 +23,12 @@ class LandingPage extends StatelessWidget {
   final GlobalKey<FormState> emailKey = GlobalKey<FormState>();
   final GlobalKey<FormState> userNameKey = GlobalKey<FormState>();
   final GlobalKey<FormState> passwordKey = GlobalKey<FormState>();
+
+  Future signInWithFacebook() async {
+
+
+    return;
+  }
 
   Future<UserCredential> signInWithGoogle() async {
 
@@ -231,32 +238,17 @@ class LandingPage extends StatelessWidget {
                 //https://developers.google.com/identity/branding-guidelines Branding guidelines
 
                 Center(
-                  child: Row(
+                  child: Column(
                     children: [
-                      ElevatedButton(
+                      SignInButton(
+                        Buttons.Google,
+                        text: "Sign in with Google",
                         onPressed: () => signInWithGoogle(),
-                        child: Row(
-                          children: [
-                            Container(
-                              width: 70,
-                              height: 70,
-                              decoration: BoxDecoration(
-                                  color: appSecondaryColour,
-                                image: const DecorationImage(
-                                  fit: BoxFit.cover,
-                                  image: AssetImage(
-                                      "assets/google_signin_buttons/android/xxxhdpi/btn_google_light_normal_xxxhdpi.9.png",
-                                  ),
-                                )
-                              ),
-                            ),
-                          ],
-                        ),
                       ),
-
-                      ElevatedButton(
-                        onPressed: () {},
-                        child: const Text('Facebook'),
+                      SignInButton(
+                        Buttons.Facebook,
+                        text: "Sign in with Facebook",
+                        onPressed: () => signInWithFacebook(),
                       ),
                     ],
                   ),
