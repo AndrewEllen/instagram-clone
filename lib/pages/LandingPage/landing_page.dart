@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:instagram_clone/constants.dart';
 import 'package:instagram_clone/extensions/email_validator.dart';
 import 'package:instagram_clone/pages/Login/user_login_page.dart';
@@ -21,6 +22,20 @@ class LandingPage extends StatelessWidget {
   final GlobalKey<FormState> emailKey = GlobalKey<FormState>();
   final GlobalKey<FormState> userNameKey = GlobalKey<FormState>();
   final GlobalKey<FormState> passwordKey = GlobalKey<FormState>();
+
+  Future<UserCredential> signInWithGoogle() async {
+
+    final GoogleSignInAccount? user = await GoogleSignIn().signIn();
+
+    final GoogleSignInAuthentication? auth = await user?.authentication;
+
+    final credential = GoogleAuthProvider.credential(
+      accessToken: auth?.accessToken,
+      idToken: auth?.idToken,
+    );
+
+    return await FirebaseAuth.instance.signInWithCredential(credential);
+  }
 
   Future<void> sendVerificationEmail(BuildContext context) async {
     final user = FirebaseAuth.instance.currentUser!;
@@ -213,15 +228,27 @@ class LandingPage extends StatelessWidget {
                   ],
                 ),
 
+                //https://developers.google.com/identity/branding-guidelines Branding guidelines
+
                 Center(
                   child: Row(
                     children: [
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () => signInWithGoogle(),
                         child: Row(
                           children: [
-                            Icon(
-                              MdiIcons.google,
+                            Container(
+                              width: 70,
+                              height: 70,
+                              decoration: BoxDecoration(
+                                  color: appSecondaryColour,
+                                image: const DecorationImage(
+                                  fit: BoxFit.cover,
+                                  image: AssetImage(
+                                      "assets/google_signin_buttons/android/xxxhdpi/btn_google_light_normal_xxxhdpi.9.png",
+                                  ),
+                                )
+                              ),
                             ),
                           ],
                         ),

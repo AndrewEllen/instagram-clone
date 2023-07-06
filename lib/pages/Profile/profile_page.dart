@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:instagram_clone/widgets/ProfileWidgets/bottom_modal_edit_bar.dart';
 import 'package:instagram_clone/widgets/ProfileWidgets/profile_counters.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -40,6 +41,11 @@ class _ProfilePageState extends State<ProfilePage>
 
 
   Future<void> signOutUser() async {
+
+    if (await GoogleSignIn().isSignedIn()) {
+      await GoogleSignIn().disconnect();
+    }
+
     await FirebaseAuth.instance.signOut();
   }
 
