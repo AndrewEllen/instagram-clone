@@ -79,7 +79,12 @@ class _MainPageState extends State<MainPage> {
   }
 
   void checkUserVerificationStatus() {
-    _isUserEmailVerified = FirebaseAuth.instance.currentUser!.emailVerified;
+
+    if (FirebaseAuth.instance.currentUser!.providerData[0].providerId != "twitter.com") {
+      _isUserEmailVerified = FirebaseAuth.instance.currentUser!.emailVerified;
+    } else {
+      _isUserEmailVerified = true;
+    }
   }
 
   void setUserNameForSession() {
@@ -90,6 +95,7 @@ class _MainPageState extends State<MainPage> {
 
   @override
   void initState() {
+
     if (FirebaseAuth.instance.currentUser != null) {
       checkUserVerificationStatus();
     }
