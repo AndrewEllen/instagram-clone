@@ -24,10 +24,11 @@ class LandingPage extends StatelessWidget {
   final GlobalKey<FormState> userNameKey = GlobalKey<FormState>();
   final GlobalKey<FormState> passwordKey = GlobalKey<FormState>();
 
-  Future signInWithFacebook() async {
+  Future<void> signInWithTwitter() async {
+    TwitterAuthProvider twitterProvider = TwitterAuthProvider();
 
+      await FirebaseAuth.instance.signInWithProvider(twitterProvider);
 
-    return;
   }
 
   Future<UserCredential> signInWithGoogle() async {
@@ -246,9 +247,9 @@ class LandingPage extends StatelessWidget {
                         onPressed: () => signInWithGoogle(),
                       ),
                       SignInButton(
-                        Buttons.Facebook,
-                        text: "Sign in with Facebook",
-                        onPressed: () => signInWithFacebook(),
+                        Buttons.Twitter,
+                        text: "Sign in with Twitter",
+                        onPressed: () => signInWithTwitter(),
                       ),
                     ],
                   ),
