@@ -156,9 +156,9 @@ class _EnterConfirmationPageState extends State<EnterConfirmationPage> {
                   ? const SizedBox(height: 8)
                   : const SizedBox.shrink(), // Adds vertical spacing
               _sendSMS
-                  ? const Text(
-                      'We have sent a confirmation code to +phoneNumber. Please enter the code below to continue.',
-                      style: TextStyle(
+                  ? Text(
+                      'We have sent a confirmation code to ${phoneController.text}. Please enter the code below to continue.',
+                      style: const TextStyle(
                         fontSize: 16,
                       ),
                     )

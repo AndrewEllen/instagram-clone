@@ -106,7 +106,7 @@ class _UserRegistrationConfirmationEmailState
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             const Text(
-              'Enter confirmation code',
+              'Email Confirmation',
               style: TextStyle(
                 fontSize: 24.0,
                 fontWeight: FontWeight.bold,

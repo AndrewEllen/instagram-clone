@@ -11,8 +11,9 @@ import 'package:flutter/material.dart';
 import 'package:instagram_clone/constants.dart';
 import 'package:instagram_clone/extensions/email_validator.dart';
 import 'package:instagram_clone/extensions/phone_validator.dart';
-import 'package:instagram_clone/pages/UserRegistration/user_registration_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
+import '../UserRegistration/user_signup.dart';
 
 
 class LoginPage extends StatefulWidget {
@@ -128,9 +129,9 @@ class _LoginPageState extends State<LoginPage> {
                       controller: userNameController,
                       decoration: InputDecoration(
                         labelText: signInLabelText,
-                        labelStyle: defaultTextStyle.copyWith(
+                        labelStyle: _showPasswordBox ? defaultTextStyle.copyWith(
                           color: signInColour,
-                        ),
+                        ): null,
                         errorStyle: defaultTextStyle.copyWith(
                           color: Colors.red,
                         ),
@@ -206,7 +207,7 @@ class _LoginPageState extends State<LoginPage> {
                     _showPasswordBox ? TextFormField(
                       key: passwordKey,
                       controller: passwordController,
-                      obscureText: true,
+                      obscureText: !_phoneSignin,
                       decoration: InputDecoration(
                         labelText: _phoneSignin ? "SMS Code" : 'Password',
                         focusedBorder: OutlineInputBorder(
