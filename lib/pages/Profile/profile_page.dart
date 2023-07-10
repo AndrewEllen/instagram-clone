@@ -104,10 +104,12 @@ class _ProfilePageState extends State<ProfilePage>
                                   fontWeight: FontWeight.w500,
                                 ),
                                 children: <TextSpan>[
-                              TextSpan(
-                                text: pronouns.isNotEmpty ? " $pronouns" : "",
-                                style: defaultTextStyle.copyWith(
-                                  fontSize: 12,
+                                  TextSpan(
+                                    text: context.watch<UserData>().pronouns.isNotEmpty
+                                        ? " ${context.watch<UserData>().pronouns}"
+                                        : "",
+                                    style: defaultTextStyle.copyWith(
+                                      fontSize: 12,
                                 ),
                               ),
                             ]))
