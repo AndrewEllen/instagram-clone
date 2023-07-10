@@ -20,7 +20,10 @@ class _InstagramAppBarState extends State<InstagramAppBar> {
   Widget build(BuildContext context) {
     return AppBar(
       automaticallyImplyLeading: false,
-      title: widget.title,
+      title: Padding(
+        padding: const EdgeInsets.only(left:4.0),
+        child: widget.title,
+      ),
       actions: widget.actions,
     );
   }

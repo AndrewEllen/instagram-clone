@@ -25,7 +25,7 @@ class _ProfilePageState extends State<ProfilePage>
 
   final String pronouns = "He/Him";
 
-  final double profileHeaderBoxSize = 60;
+  final double profileHeaderBoxSize = 75;
 
   TabController? tabController;
 
@@ -76,8 +76,8 @@ class _ProfilePageState extends State<ProfilePage>
               minHeight: profileHeaderBoxSize,
             ),
             margin: const EdgeInsets.only(
-              top: 20,
-              left: 30,
+              top: 16,
+              left: 20,
             ),
             child: IntrinsicHeight(
               child: Row(
@@ -96,25 +96,6 @@ class _ProfilePageState extends State<ProfilePage>
                           size: profileHeaderBoxSize,
                         ),
                       ),
-                      RichText(
-                        text: TextSpan(
-                          text: context.watch<UserData>().userDisplayName,
-                          style: defaultTextStyle.copyWith(
-                            fontSize: 13,
-                            fontWeight: FontWeight.w500,
-                          ),
-                          children: <TextSpan>[
-                            TextSpan(
-                              text: context.watch<UserData>().pronouns.isNotEmpty
-                                  ? " ${context.watch<UserData>().pronouns}"
-                                  : "",
-                              style: defaultTextStyle.copyWith(
-                                fontSize: 12,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
                     ],
                   ),
                   const Spacer(),
@@ -123,7 +104,7 @@ class _ProfilePageState extends State<ProfilePage>
                     //TODO Replace counter value with a provider variable
                     counter: 0,
                     margin: EdgeInsets.only(
-                      top: 10,
+                      top: 18,
                     ),
                   ),
                   const Spacer(),
@@ -132,7 +113,7 @@ class _ProfilePageState extends State<ProfilePage>
                     //TODO Replace counter value with a provider variable
                     counter: 0,
                     margin: EdgeInsets.only(
-                      top: 10,
+                      top: 18,
                     ),
                   ),
                   const Spacer(),
@@ -141,7 +122,7 @@ class _ProfilePageState extends State<ProfilePage>
                     //TODO Replace counter value with a provider variable
                     counter: 0,
                     margin: EdgeInsets.only(
-                      top: 10,
+                      top: 18,
                     ),
                   ),
                   const Spacer(),
@@ -150,9 +131,35 @@ class _ProfilePageState extends State<ProfilePage>
             ),
           ),
           Container(
+            alignment: Alignment.centerLeft,
+            margin: const EdgeInsets.only(
+              left: 19,
+            ),
+            child: RichText(
+              text: TextSpan(
+                text: context.watch<UserData>().userDisplayName,
+                style: defaultTextStyle.copyWith(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w500,
+                ),
+                children: <TextSpan>[
+                  TextSpan(
+                    text: context.watch<UserData>().pronouns.isNotEmpty
+                        ? " ${context.watch<UserData>().pronouns}"
+                        : "",
+                    style: defaultTextStyle.copyWith(
+                      fontSize: 12,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Container(
+            alignment: Alignment.centerLeft,
             margin: const EdgeInsets.symmetric(
               vertical: 10.0,
-              horizontal: 30.0,
+              horizontal: 19.0,
             ),
             child: Text(
               context.watch<UserData>().bio,
@@ -301,8 +308,9 @@ class _ProfilePageState extends State<ProfilePage>
                     ],
                   ),
                 ),
+                ///TODO Fix this it will overflow on different resolutions
                 SizedBox(
-                  height: 450,
+                  height: 396.6,
                   child: TabBarView(
                     controller: tabController,
                       children: const [
