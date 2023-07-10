@@ -16,15 +16,17 @@ class _BottomModalEditBarState extends State<BottomModalEditBar> {
 
   final TextEditingController userNameController = TextEditingController();
   final TextEditingController userDisplayNameController = TextEditingController();
+  final TextEditingController pronounsController = TextEditingController();
 
   final GlobalKey<FormState> userNameKey = GlobalKey<FormState>();
   final GlobalKey<FormState> userDisplayNameKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> pronounsKey = GlobalKey<FormState>();
 
   @override
   void initState() {
-
     userNameController.text = context.read<UserData>().userName;
     userDisplayNameController.text = context.read<UserData>().userDisplayName;
+    pronounsController.text = context.read<UserData>().pronouns;
 
     super.initState();
   }
@@ -66,19 +68,37 @@ class _BottomModalEditBarState extends State<BottomModalEditBar> {
             ),
           ),
           const SizedBox(
+            height: 10,
+          ),
+          FractionallySizedBox(
+            widthFactor: 0.8,
+            child: EditProfileTextForm(
+              icon: const Icon(Icons.info_outline),
+              hintText: "Enter your pronouns",
+              labelText: "Pronouns",
+              errorMessage: "No Special Characters allowed",
+              controller: pronounsController,
+              formKey: pronounsKey,
+              formatter: RegExp(r'^[a-zA-Z/ ]+$'),
+            ),
+          ),
+          const SizedBox(
             height: 20,
           ),
           FractionallySizedBox(
             widthFactor: 0.5,
             child: ProfileButton(
-                onTap: () {
-                  if (userNameKey.currentState!.validate() && userDisplayNameKey.currentState!.validate()) {
-                    context.read<UserData>().updateUserName(userNameController.text);
-                    context.read<UserData>().updateUserDisplayName(userDisplayNameController.text);
-                    Navigator.pop(context);
-                  }
-                },
-                text: "Save Changes",
+              onTap: () {
+                if (userNameKey.currentState!.validate() &&
+                    userDisplayNameKey.currentState!.validate() &&
+                    pronounsKey.currentState!.validate()) {
+                  context.read<UserData>().updateUserName(userNameController.text);
+                  context.read<UserData>().updateUserDisplayName(userDisplayNameController.text);
+                  context.read<UserData>().updatePronouns(pronounsController.text);  // add this line
+                  Navigator.pop(context);
+                }
+              },
+              text: "Save Changes",
             ),
           ),
           const SizedBox(
