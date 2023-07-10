@@ -115,18 +115,6 @@ class _ProfilePageState extends State<ProfilePage>
                           ],
                         ),
                       ),
-                      Container(
-                        margin: const EdgeInsets.symmetric(
-                          vertical: 10.0,
-                          horizontal: 30.0,
-                        ),
-                        child: Text(
-                          context.watch<UserData>().bio,
-                          style: const TextStyle(
-                            fontSize: 16.0,
-                          ),
-                        ),
-                      ),
                     ],
                   ),
                   const Spacer(),
@@ -158,6 +146,18 @@ class _ProfilePageState extends State<ProfilePage>
                   ),
                   const Spacer(),
                 ],
+              ),
+            ),
+          ),
+          Container(
+            margin: const EdgeInsets.symmetric(
+              vertical: 10.0,
+              horizontal: 30.0,
+            ),
+            child: Text(
+              context.watch<UserData>().bio,
+              style: const TextStyle(
+                fontSize: 16.0,
               ),
             ),
           ),
