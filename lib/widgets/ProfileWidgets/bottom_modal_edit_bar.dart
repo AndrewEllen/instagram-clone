@@ -53,6 +53,8 @@ class _BottomModalEditBarState extends State<BottomModalEditBar> {
               controller: userNameController,
               formKey: userNameKey,
               formatter: RegExp(r'^[a-zA-Z0-9_]+$'),
+              minTextLength: 1,
+              maxTextLength: 25,
             ),
           ),
           const SizedBox(
@@ -68,6 +70,8 @@ class _BottomModalEditBarState extends State<BottomModalEditBar> {
               controller: userDisplayNameController,
               formKey: userDisplayNameKey,
               formatter: RegExp(r'^[a-zA-Z0-9_ ]+$'),
+              minTextLength: 1,
+              maxTextLength: 25,
             ),
           ),
           const SizedBox(
@@ -83,6 +87,8 @@ class _BottomModalEditBarState extends State<BottomModalEditBar> {
               controller: pronounsController,
               formKey: pronounsKey,
               formatter: RegExp(r'^[a-zA-Z/ ]+$'),
+              minTextLength: 0,
+              maxTextLength: 25,
             ),
           ),
           FractionallySizedBox(
@@ -94,7 +100,9 @@ class _BottomModalEditBarState extends State<BottomModalEditBar> {
               errorMessage: "No Special Characters allowed",
               controller: bioController,
               formKey: bioKey,
-              formatter: RegExp(r'^[a-zA-Z0-9_ ]+$'),
+              formatter: RegExp(r'^(?:[a-zA-Z]|\P{L})+$', unicode: true),
+              minTextLength: 0,
+              maxTextLength: 150,
             ),
           ),
           const SizedBox(
