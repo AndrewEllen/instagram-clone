@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:instagram_clone/constants.dart';
 
 class EditProfileTextForm extends StatefulWidget {
-  EditProfileTextForm({
+  const EditProfileTextForm({
     Key? key,
     required this.hintText,
     required this.labelText,
@@ -11,15 +11,19 @@ class EditProfileTextForm extends StatefulWidget {
     required this.icon,
     required this.formatter,
     required this.errorMessage,
+    required this.maxTextLength,
+    required this.minTextLength,
   }) : super(key: key);
 
-  late String hintText;
-  late String labelText;
-  late String errorMessage;
-  late TextEditingController controller;
-  late GlobalKey<FormState> formKey;
-  late Icon icon;
-  late RegExp formatter;
+  final String hintText;
+  final String labelText;
+  final String errorMessage;
+  final TextEditingController controller;
+  final GlobalKey<FormState> formKey;
+  final Icon icon;
+  final RegExp formatter;
+  final int maxTextLength;
+  final int minTextLength;
 
   @override
   State<EditProfileTextForm> createState() => _EditProfileTextFormState();
@@ -32,6 +36,7 @@ class _EditProfileTextFormState extends State<EditProfileTextForm> {
     return Form(
       key: widget.formKey,
       child: TextFormField(
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           controller: widget.controller,
           cursorColor: appSecondaryColour,
           decoration: InputDecoration(
@@ -45,14 +50,15 @@ class _EditProfileTextFormState extends State<EditProfileTextForm> {
               hintText: widget.hintText,
               labelText: widget.labelText,
           ),
+          maxLength: widget.maxTextLength,
           validator: (String? value) {
-            if (value!.isNotEmpty && value!.length <= 25) {
-              if (widget.formatter!.hasMatch(value)) {
+            if (value!.length >= widget.minTextLength && value.length <= widget.maxTextLength) {
+              if (widget.formatter.hasMatch(value)) {
                 return null;
               }
               return widget.errorMessage;
             }
-            return "Value must be between 1 and 25 characters";
+            return "${value.length}/${widget.maxTextLength}";
           }),
     );
   }
