@@ -17,16 +17,19 @@ class _BottomModalEditBarState extends State<BottomModalEditBar> {
   final TextEditingController userNameController = TextEditingController();
   final TextEditingController userDisplayNameController = TextEditingController();
   final TextEditingController pronounsController = TextEditingController();
+  final TextEditingController bioController = TextEditingController();
 
   final GlobalKey<FormState> userNameKey = GlobalKey<FormState>();
   final GlobalKey<FormState> userDisplayNameKey = GlobalKey<FormState>();
   final GlobalKey<FormState> pronounsKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> bioKey = GlobalKey<FormState>();
 
   @override
   void initState() {
     userNameController.text = context.read<UserData>().userName;
     userDisplayNameController.text = context.read<UserData>().userDisplayName;
     pronounsController.text = context.read<UserData>().pronouns;
+    bioController.text = context.read<UserData>().bio;
 
     super.initState();
   }
@@ -50,6 +53,8 @@ class _BottomModalEditBarState extends State<BottomModalEditBar> {
               controller: userNameController,
               formKey: userNameKey,
               formatter: RegExp(r'^[a-zA-Z0-9_]+$'),
+              minTextLength: 1,
+              maxTextLength: 25,
             ),
           ),
           const SizedBox(
@@ -65,6 +70,8 @@ class _BottomModalEditBarState extends State<BottomModalEditBar> {
               controller: userDisplayNameController,
               formKey: userDisplayNameKey,
               formatter: RegExp(r'^[a-zA-Z0-9_ ]+$'),
+              minTextLength: 1,
+              maxTextLength: 25,
             ),
           ),
           const SizedBox(
@@ -80,6 +87,22 @@ class _BottomModalEditBarState extends State<BottomModalEditBar> {
               controller: pronounsController,
               formKey: pronounsKey,
               formatter: RegExp(r'^[a-zA-Z/ ]+$'),
+              minTextLength: 0,
+              maxTextLength: 25,
+            ),
+          ),
+          FractionallySizedBox(
+            widthFactor: 0.8,
+            child: EditProfileTextForm(
+              icon: const Icon(Icons.info),
+              hintText: "Enter your bio",
+              labelText: "Bio",
+              errorMessage: "No Special Characters allowed",
+              controller: bioController,
+              formKey: bioKey,
+              formatter: RegExp(r'^(?:[a-zA-Z]|\P{L})+$', unicode: true),
+              minTextLength: 0,
+              maxTextLength: 150,
             ),
           ),
           const SizedBox(
@@ -91,10 +114,12 @@ class _BottomModalEditBarState extends State<BottomModalEditBar> {
               onTap: () {
                 if (userNameKey.currentState!.validate() &&
                     userDisplayNameKey.currentState!.validate() &&
-                    pronounsKey.currentState!.validate()) {
+                    pronounsKey.currentState!.validate() &&
+                    bioKey.currentState!.validate()) {
                   context.read<UserData>().updateUserName(userNameController.text);
                   context.read<UserData>().updateUserDisplayName(userDisplayNameController.text);
-                  context.read<UserData>().updatePronouns(pronounsController.text);  // add this line
+                  context.read<UserData>().updatePronouns(pronounsController.text);
+                  context.read<UserData>().updateBio(bioController.text);
                   Navigator.pop(context);
                 }
               },
