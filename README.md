@@ -6,13 +6,15 @@ This project is designed and tested for Android 13 although it should support an
 
 This project is developed purely as a portfolio piece and to gain more experience in the flutter framework and with firebase.
 
+* These instructions are for building the APK on a PC using Windows 10 although this should work for other systems.
+
 ### Step 1 - Install Flutter
+
+This project is being developed on Windows 10 using Android Studio, but the following instructions should also work for other operating systems and IDEs. 
 
 To install Flutter you can follow the [Flutter Install Instructions](https://docs.flutter.dev/get-started/install) from the flutter dev website.
 
 Ensure that you have properly installed and set up Android Studio and Flutter. This may require a PC restart once installed.
-
-This project is being developed on Windows 10 using Android Studio, although the OS and IDE don't necessarily need to be the same.
 
 
 ### Step 2 - Clone the repo
