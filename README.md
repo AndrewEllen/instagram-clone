@@ -86,3 +86,7 @@ Navigate to "build/app/outputs/flutter-apk/" to find the "app-release.apk".
 Copy the APK to your android device either through a USB connection or another way such as saving it to google drive and downloading it on the device.
 
 Run the APK to install.
+
+### Instructions for setting up the project with Linux and Visual Studio Code
+
+Please [click here](./README_Linux_VSCode.md) for the Linux readme using Visual Studio code
